@@ -18,6 +18,8 @@
     <color name="amarillo_pastel">#fae9af</color>
     <color name="celeste_pastel">#B7E5FA</color>
     <color name="gris">#8c8f94</color>
+    <color name="naranja_halo">#33F08A4B</color> <!-- naranja con transparencia, para el halo detrás del logo --> yo cambie esto
+
 
     <!-- Paleta para que no se rompa lo de dario (luego borrar)-->
     <color name="fondo_splash">#1E1E2C</color>        <!-- Oscuro elegante -->
