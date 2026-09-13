@@ -14,6 +14,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etUsuario;
     private EditText etPassword;
     private Button btnLogin;
+    private android.widget.TextView tvIrARegistro;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,6 +26,14 @@ public class LoginActivity extends AppCompatActivity {
         etUsuario = findViewById(R.id.etUsuario);
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
+        tvIrARegistro = findViewById(R.id.tvIrARegistro);
+
+        tvIrARegistro.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
+            }
+        });
 
         // 3. Evento: Detectamos el clic en el botón
         btnLogin.setOnClickListener(new View.OnClickListener() {

@@ -56,4 +56,14 @@
         android:textStyle="bold"
         android:background="@drawable/boton_redondeado"
         app:backgroundTint="@null"/>
+    <TextView
+        android:id="@+id/tvIrARegistro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿No tenés cuenta? Registrate"
+        android:textColor="@color/verde1"
+        android:textSize="14sp"
+        android:padding="16dp"
+        android:clickable="true"
+        android:focusable="true" />
 </LinearLayout>
