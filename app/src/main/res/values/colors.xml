@@ -3,11 +3,29 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
 
-    <!-- Paleta para nuestra App -->
+    <!-- Paleta del proyecto -->
+    <color name="amarillo">#f0c017</color>
+    <color name="celeste">#6ecbf5</color>
+    <color name="violeta">#9b6ef3</color>
+    <color name="naranja">#f08a4b</color>
+    <color name="verde1">#3d8a2e</color>
+    <color name="verde2">#61b045</color>
+    <color name="fondo">#edf2eb</color>
+    <color name="salmon">#f4d3bb</color>
+    <color name="salmon_claro">#f3eae4</color>
+    <color name="violeta_pastel">#decffb</color>
+    <color name="verde_pastel">#cae5c1</color>
+    <color name="amarillo_pastel">#fae9af</color>
+    <color name="celeste_pastel">#B7E5FA</color>
+    <color name="gris">#8c8f94</color>
+
+    <!-- Paleta para que no se rompa lo de dario (luego borrar)-->
     <color name="fondo_splash">#1E1E2C</color>        <!-- Oscuro elegante -->
     <color name="azul_primario">#2196F3</color>       <!-- Color para botones principales -->
     <color name="azul_presionado">#1976D2</color>     <!-- Color al presionar -->
     <color name="gris_fondo_input">#F4F6F9</color>    <!-- Fondo claro para campos de texto -->
     <color name="gris_borde_input">#CBD5E1</color>    <!-- Borde tenue -->
     <color name="texto_principal">#334155</color>     <!-- Color de letra para titulos -->
+
+
 </resources>

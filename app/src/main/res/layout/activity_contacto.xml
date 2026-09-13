@@ -9,22 +9,23 @@
     android:padding="32dp"
     android:background="@color/white">
 
-    <!-- 1. Título Principal -->
+    <!-- titulo -->
     <TextView
+        android:id="@+id/tvTituloContacto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="INICIAR SESIÓN"
+        android:text="Contacto"
         android:textColor="@color/verde1"
-        android:textSize="18sp"
+        android:textSize="22sp"
         android:textStyle="bold"
         android:layout_marginBottom="32dp" />
 
-    <!-- 2. Campo de entrada para el Usuario -->
+    <!-- camop nombre -->
     <EditText
-        android:id="@+id/etUsuario"
+        android:id="@+id/etNombre"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Nombre de usuario"
+        android:hint="Nombre completo"
         android:inputType="textPersonName"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
@@ -32,28 +33,42 @@
         android:textColor="@color/texto_principal"
         android:layout_marginBottom="16dp" />
 
-    <!-- 3. Campo de entrada para la Contraseña -->
+    <!-- campo email -->
     <EditText
-        android:id="@+id/etPassword"
+        android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Contraseña"
-        android:inputType="textPassword"
+        android:hint="Correo electrónico"
+        android:inputType="textEmailAddress"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:background="@drawable/input_fondo"
         android:textColor="@color/texto_principal"
+        android:layout_marginBottom="16dp" />
+
+    <!-- campo msj -->
+    <EditText
+        android:id="@+id/etMensaje"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:hint="Dejanos tu consulta"
+        android:inputType="textMultiLine"
+        android:gravity="top|start"
+        android:padding="16dp"
+        android:background="@drawable/input_fondo"
+        android:textColor="@color/texto_principal"
         android:layout_marginBottom="24dp" />
 
-    <!-- 4. Botón de Acción -->
+    <!-- btn -->
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnEnviarContacto"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="INGRESAR"
+        android:text="ENVIAR"
         android:textColor="@color/white"
         android:textSize="16sp"
         android:textStyle="bold"
         android:background="@drawable/boton_redondeado"
-        app:backgroundTint="@null"/>
+        app:backgroundTint="@null" />
+
 </LinearLayout>
