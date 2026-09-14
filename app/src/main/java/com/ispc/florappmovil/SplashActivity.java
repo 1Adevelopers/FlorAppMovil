@@ -12,20 +12,8 @@ import android.view.animation.DecelerateInterpolator;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 
-/**
- * Pantalla de carga inicial de FlorApp.
- *
- * Esta versión es 100% independiente: no depende de nada que hagan los
- * demás. Muestra la animación de bienvenida y, cuando termina, manda
- * siempre a LoginActivity.
- *
- * Más adelante, si el equipo decide guardar el login en SharedPreferences
- * para "recordar sesión", esa lógica se agrega adentro de goToNextScreen()
- * sin tocar el resto de la pantalla. Por ahora no hace falta.
- */
 public class SplashActivity extends AppCompatActivity {
 
-    // Duración total que se muestra el splash (5 segundos)
     private static final long MIN_SPLASH_TIME_MS = 5000;
 
     @Override
@@ -35,10 +23,8 @@ public class SplashActivity extends AppCompatActivity {
 
         animateWelcome();
 
-        // Espera exactamente los 5 segundos antes de navegar a la siguiente pantalla
         new Handler(Looper.getMainLooper()).postDelayed(this::goToNextScreen, MIN_SPLASH_TIME_MS);
     }
-
 
     private void animateWelcome() {
         View halo = findViewById(R.id.viewHalo);
@@ -76,14 +62,10 @@ public class SplashActivity extends AppCompatActivity {
         fullSequence.start();
     }
 
-    /**
-     * Navega siempre a LoginActivity. No depende de SharedPreferences, de
-     * ningún token ni de que otra pantalla esté terminada: es autosuficiente.
-     */
     private void goToNextScreen() {
-        Intent intent = new Intent(SplashActivity.this, LoginActivity.class);
+        Intent intent = new Intent(SplashActivity.this, IngresoActivity.class);
         startActivity(intent);
         overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
-        finish(); // para que no se pueda volver al splash con el botón "atrás"
+        finish();
     }
 }
