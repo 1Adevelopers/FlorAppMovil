@@ -53,11 +53,10 @@ public class GaleriaActivity extends AppCompatActivity {
         });
 
 
-        /**  Cuando la parte de perfil esté creado, simplemente sacar la barra y los asteriscos asi funciona (@carlos)
         btnPerfil.setOnClickListener(v -> {
             Intent intent = new Intent(GaleriaActivity.this, ProfileActivity.class);
             startActivity(intent);
-        }); **/
+        });
 
         btnFiltroArboles.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@color/fondo"
+    android:gravity="center_horizontal">
+
+
+    <TextView
+        android:id="@+id/tvVolverGaleria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:text="Volver a la galería"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/verde1"
+        android:paddingBottom="40dp" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PERFIL"
+        android:textSize="22sp"
+        android:textStyle="bold"
+        android:textColor="@color/verde1"
+        android:layout_marginBottom="32dp" />
+
+
+    <EditText
+        android:id="@+id/etCampo1"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Nombre de usuario"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="@drawable/boton_redondeado"
+        android:layout_marginBottom="16dp" />
+
+
+    <EditText
+        android:id="@+id/etCampo2"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Correo electrónico"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="@drawable/boton_redondeado"
+        android:layout_marginBottom="32dp" />
+
+
+    <Button
+        android:id="@+id/btnModificar"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:text="MODIFICAR"
+        android:textColor="@android:color/white"
+        android:textStyle="bold"
+        android:backgroundTint="@color/verde2" />
+
+</LinearLayout>
