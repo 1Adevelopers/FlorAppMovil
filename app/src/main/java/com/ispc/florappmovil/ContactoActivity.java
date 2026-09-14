@@ -1,6 +1,8 @@
 package com.ispc.florappmovil;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -14,6 +16,8 @@ public class ContactoActivity extends AppCompatActivity {
     private EditText etMensaje;
     private Button btnEnviarContacto;
 
+    private Button btnGaleria;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -23,6 +27,7 @@ public class ContactoActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
         etMensaje = findViewById(R.id.etMensaje);
         btnEnviarContacto = findViewById(R.id.btnEnviarContacto);
+        btnGaleria = findViewById(R.id.btnGaleria);
 
         btnEnviarContacto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -30,6 +35,7 @@ public class ContactoActivity extends AppCompatActivity {
                 String nombre = etNombre.getText().toString().trim();
                 String email = etEmail.getText().toString().trim();
                 String mensaje = etMensaje.getText().toString().trim();
+
 
                 if (!nombre.isEmpty() && !email.isEmpty() && !mensaje.isEmpty()) {
                     Toast.makeText(ContactoActivity.this, "¡Consulta enviada con éxito!", Toast.LENGTH_LONG).show();
@@ -40,7 +46,11 @@ public class ContactoActivity extends AppCompatActivity {
                 } else {
                     Toast.makeText(ContactoActivity.this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
                 }
-            }
+            };
+        });
+        btnGaleria.setOnClickListener(g -> {
+            Intent intent = new Intent(ContactoActivity.this, GaleriaActivity.class);
+            startActivity(intent);
         });
     }
 }
