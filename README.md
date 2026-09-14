@@ -1,10 +1,10 @@
-# 🌿 FlorApp Móvil - Concientización sobre Flora Autóctona de Córdoba
+#  FlorApp Móvil - Concientización sobre Flora Autóctona de Córdoba
 
 > **Extensión Android Nativa** del ecosistema **FlorApp** para la consulta pública, gestión de docentes y concientización sobre la flora nativa de la provincia de Córdoba.
 
 ---
 
-## 📌 Visión General del Proyecto
+##  Visión General del Proyecto
 
 **FlorApp Móvil** forma parte de un proyecto integrador desarrollado para el **Instituto Superior Politécnico Córdoba (ISPC)** en la *Tecnicatura Superior en Desarrollo Web y Aplicaciones Digitales*. 
 
@@ -14,7 +14,7 @@ Mientras la Plataforma Web administra integralmente los contenidos y el catálog
 
 ---
 
-## 🛠️ Arquitectura y Tecnologías
+##  Arquitectura y Tecnologías
 
 El proyecto sigue un esquema desacoplado Cliente-Servidor:
 
@@ -25,7 +25,7 @@ El proyecto sigue un esquema desacoplado Cliente-Servidor:
 
 ---
 
-## 🌿 Flujo de Navegación y Pantallas Principales
+##  Flujo de Navegación y Pantallas Principales
 
 1. **Bienvenida / Ingreso (`SplashActivity` / `IngresoActivity`):** Verificación automática de sesión guardada localmente u opciones de acceso libre.
 2. **Galería (`GaleriaActivity`):** Catálogo interactivo consumido desde la API REST.
@@ -35,7 +35,7 @@ El proyecto sigue un esquema desacoplado Cliente-Servidor:
 
 ---
 
-## 🌳 Estrategia de Ramas y Control de Versiones (GitFlow)
+##  Estrategia de Ramas y Control de Versiones (GitFlow)
 
 El desarrollo del repositorio se organiza estrictamente mediante **GitFlow**:
 
@@ -45,7 +45,7 @@ El desarrollo del repositorio se organiza estrictamente mediante **GitFlow**:
 
 ---
 
-## 👥 Equipo de Desarrollo (1A> DEVELOPERS)
+##  Equipo de Desarrollo (1A> DEVELOPERS)
 
 | Integrante | Rol en el Proyecto |
 | :--- | :--- |
@@ -58,7 +58,7 @@ El desarrollo del repositorio se organiza estrictamente mediante **GitFlow**:
 
 ---
 
-## ⚙️ Requisitos para la Compilación
+##  Requisitos para la Compilación
 
 * **Android Studio:** Jellyfish / Koala o superior.
 * **JDK:** Java 17.
