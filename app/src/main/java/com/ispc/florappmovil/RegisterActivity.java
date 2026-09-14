@@ -19,6 +19,7 @@ public class RegisterActivity extends AppCompatActivity {
     private EditText etConfirmarPassword;
     private Button btnRegistrar;
     private TextView tvVolverALogin;
+    private TextView tvInvitado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +33,7 @@ public class RegisterActivity extends AppCompatActivity {
         etConfirmarPassword = findViewById(R.id.etConfirmarPassword);
         btnRegistrar = findViewById(R.id.btnRegistrar);
         tvVolverALogin = findViewById(R.id.tvVolverALogin);
+        tvInvitado = findViewById(R.id.tvInvitado);
 
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,12 +42,22 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        tvInvitado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { finish();}
+        });
         tvVolverALogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 finish();
             }
         });
+
+        tvInvitado.setOnClickListener(v -> {
+            Intent intent = new Intent(RegisterActivity.this, GaleriaActivity.class);
+            startActivity(intent);
+        });
+
     }
 
     private void intentarRegistro() {

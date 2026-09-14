@@ -8,6 +8,39 @@
     android:padding="24dp"
     android:background="@color/fondo">
 
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="85dp"
+        >
+
+        <!-- Botón Contacto -->
+        <Button
+            android:id="@+id/btnContacto"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="Contacto"
+            android:textAllCaps="false"
+            android:textSize="8sp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/verde1"
+            android:layout_marginEnd="5dp" />
+
+        <!-- Botón Perfil -->
+        <Button
+            android:id="@+id/btnPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="Perfil"
+            android:textAllCaps="false"
+            android:textSize="8sp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/verde1"
+            android:layout_marginEnd="5dp" />
+    </LinearLayout>
+
     <!-- Titulo -->
     <TextView
         android:layout_width="wrap_content"

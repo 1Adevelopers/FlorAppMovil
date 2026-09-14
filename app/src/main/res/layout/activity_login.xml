@@ -56,6 +56,19 @@
         android:textStyle="bold"
         android:background="@drawable/boton_redondeado"
         app:backgroundTint="@null"/>
+
+    <TextView
+        android:id="@+id/tvInvitado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Ingresar como Invitado"
+        android:textColor="@color/gris"
+        android:textSize="14sp"
+        android:padding="16dp"
+        android:layout_marginTop="5dp"
+        android:clickable="true"
+        android:focusable="true" />
+
     <TextView
         android:id="@+id/tvIrARegistro"
         android:layout_width="wrap_content"

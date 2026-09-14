@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
@@ -15,6 +16,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText etPassword;
     private Button btnLogin;
     private android.widget.TextView tvIrARegistro;
+    private TextView tvInvitado;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,12 +29,23 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btnLogin = findViewById(R.id.btnLogin);
         tvIrARegistro = findViewById(R.id.tvIrARegistro);
+        tvInvitado = findViewById(R.id.tvInvitado);
 
         tvIrARegistro.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(LoginActivity.this, RegisterActivity.class));
             }
+        });
+
+        tvInvitado.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) { finish();}
+        });
+
+        tvInvitado.setOnClickListener(v -> {
+            Intent intent = new Intent(LoginActivity.this, GaleriaActivity.class);
+            startActivity(intent);
         });
 
         // 3. Evento: Detectamos el clic en el botón
