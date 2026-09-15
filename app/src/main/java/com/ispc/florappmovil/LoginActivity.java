@@ -59,7 +59,7 @@ public class LoginActivity extends AppCompatActivity {
                 // 5. Validación de campos
                 if (!usuario.isEmpty() && !password.isEmpty()) {
                     // Si hay datos, preparamos el viaje a la siguiente pantalla (Intent explícito)
-                    Intent intent = new Intent(LoginActivity.this, MainActivity.class);
+                    Intent intent = new Intent(LoginActivity.this, GaleriaActivity.class);
 
                     // Empaquetamos el nombre de usuario para enviarlo a la MainActivity
                     intent.putExtra("EXTRA_USUARIO", usuario);
