@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="24dp"
+    android:background="@color/fondo">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="65dp"
+        >
+
+        <!-- Botón Contacto -->
+        <Button
+            android:id="@+id/btnContacto"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="Contacto"
+            android:textAllCaps="false"
+            android:textSize="8sp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/verde1"
+            android:layout_marginEnd="5dp" />
+
+        <!-- Botón Perfil -->
+        <Button
+            android:id="@+id/btnPerfil"
+            android:layout_width="wrap_content"
+            android:layout_height="32dp"
+            android:text="Perfil"
+            android:textAllCaps="false"
+            android:textSize="8sp"
+            android:textColor="@color/white"
+            android:backgroundTint="@color/verde1"
+            android:layout_marginEnd="5dp" />
+    </LinearLayout>
+
+    <!-- Titulo -->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fichas de plantas"
+        android:textColor="@color/verde1"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="5dp"/>
+
+    <!-- Filtros -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <!-- Filtro 1 -->
+            <Button
+                android:id="@+id/btnFiltroTodas"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="Todas"
+                android:textAllCaps="false"
+                android:textSize="10sp"
+                android:textColor="#000"
+                android:backgroundTint="#DCDCDC"
+                android:layout_marginEnd="5dp" />
+
+            <Button
+                android:id="@+id/btnFiltroArboles"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="Árboles"
+                android:textAllCaps="false"
+                android:textSize="10sp"
+                android:textColor="#000"
+                android:backgroundTint="@color/verde_pastel"
+                android:layout_marginEnd="5dp" />
+
+            <Button
+                android:id="@+id/btnFiltroArbustos"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="Arbustos"
+                android:textAllCaps="false"
+                android:textSize="10sp"
+                android:textColor="#000"
+                android:backgroundTint="@color/salmon"
+                android:layout_marginEnd="5dp" />
+
+            <Button
+                android:id="@+id/btnFiltroHierbas"
+                android:layout_width="wrap_content"
+                android:layout_height="32dp"
+                android:text="Hierbas"
+                android:textAllCaps="false"
+                android:textSize="10sp"
+                android:textColor="#000"
+                android:backgroundTint="@color/amarillo_pastel"
+                android:layout_marginEnd="5dp"
+                android:layout_marginBottom="5dp"/>
+        </LinearLayout>
+
+    <!-- Ficha 1 -->
+    <LinearLayout
+        android:id="@+id/ficha1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:background="@drawable/input_fondo"
+        android:paddingBottom="5dp"
+        android:layout_marginBottom="10dp"
+        >
+
+        <!-- Img -->
+        <ImageView
+            android:layout_width="360dp"
+            android:layout_height="140dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_launcher_foreground" />
+
+        <!-- Nombre Común -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Quebracho blanco"
+            android:textColor="@color/verde1"
+            android:orientation="vertical"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp" />
+
+        <!-- Nombre Científico -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Aspidosperma quebracho-blanco"
+            android:textStyle="italic"
+            android:orientation="vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="10dp" />
+    </LinearLayout>
+
+    <!-- Ficha 2 -->
+    <LinearLayout
+        android:id="@+id/ficha2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:background="@drawable/input_fondo"
+        android:paddingBottom="5dp"
+        android:layout_marginBottom="10dp"
+        >
+
+        <!-- Img -->
+        <ImageView
+            android:layout_width="360dp"
+            android:layout_height="140dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_launcher_foreground" />
+
+        <!-- Nombre Común -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tala"
+            android:textColor="@color/verde1"
+            android:orientation="vertical"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp" />
+
+        <!-- Nombre Científico -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Celtis tala"
+            android:textStyle="italic"
+            android:orientation="vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="10dp" />
+    </LinearLayout>
+
+    <!-- Ficha 3 -->
+    <LinearLayout
+        android:id="@+id/ficha3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:background="@drawable/input_fondo"
+        android:paddingBottom="5dp"
+        android:layout_marginBottom="10dp"
+        >
+
+        <!-- Img -->
+        <ImageView
+            android:layout_width="360dp"
+            android:layout_height="140dp"
+            android:layout_marginBottom="16dp"
+            android:src="@drawable/ic_launcher_foreground" />
+
+        <!-- Nombre Común -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Peperina"
+            android:textColor="@color/verde1"
+            android:orientation="vertical"
+            android:textStyle="bold"
+            android:layout_marginLeft="5dp" />
+
+        <!-- Nombre Científico -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Minthostachys verticillata"
+            android:textStyle="italic"
+            android:orientation="vertical"
+            android:layout_marginLeft="5dp"
+            android:layout_marginBottom="10dp" />
+    </LinearLayout>
+</LinearLayout>

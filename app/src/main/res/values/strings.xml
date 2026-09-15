@@ -1,3 +1,23 @@
 <resources>
+    <!-- CREDENCIALES APLICATIVO -->
     <string name="app_name">FlorAppMovil</string>
+    <string name="developer">1ADevelopers</string>
+    <string name="desarrollo">Desarrollado por:</string>
+    <string name="version">Version 1.0.0</string>
+
+    <!-- LOGIN -->
+    <string name="titulo_login">Ingrese Sesion</string>
+    <string name="lbl_usuario">Usuario</string>
+    <string name="txt_usuario">Ingrese Usuario</string>
+    <string name="lbl_password">Contraseña</string>
+    <string name="txt_password">Ingrese Contraseña</string>
+    <string name="btn_ingresar">Ingresar</string>
+    <string name="lbl_crear_cuenta">No tienes cuenta?, Registrate</string>
+
+    <!-- REGISTRO -->
+
+    <!-- ELECCION -->
+    <!-- MAS DATOS -->
+    <!-- SPLASH -->
+    <string name="splash_tagline">Cuidando tus plantas, un toque a la vez</string>
 </resources>
