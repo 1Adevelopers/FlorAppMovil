@@ -8,7 +8,7 @@ import retrofit2.http.Body;
 import retrofit2.http.POST;
 
 public interface FlorAppApi {
-    @POST("api/usuarios/login/")
+    @POST("api/token/")
     Call<TokenResponse> loginUsuario(@Body LoginRequest loginRequest);
 
     // Aquí abajo tus compañeros agregarán sus métodos (ej. @GET("api/flora/especies/"))
