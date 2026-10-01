@@ -9,8 +9,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import org.json.JSONObject;
+
+import java.io.OutputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.nio.charset.StandardCharsets;
+
 public class ContactoActivity extends AppCompatActivity {
 
+    private static final String URL_INTERACCION = "http://192.168.120.54:8000/api/interacciones/";
     private EditText etNombre;
     private EditText etEmail;
     private EditText etMensaje;
@@ -36,21 +44,77 @@ public class ContactoActivity extends AppCompatActivity {
                 String email = etEmail.getText().toString().trim();
                 String mensaje = etMensaje.getText().toString().trim();
 
-
-                if (!nombre.isEmpty() && !email.isEmpty() && !mensaje.isEmpty()) {
-                    Toast.makeText(ContactoActivity.this, "¡Consulta enviada con éxito!", Toast.LENGTH_LONG).show();
-
-                    etNombre.setText("");
-                    etEmail.setText("");
-                    etMensaje.setText("");
-                } else {
+                if (nombre.isEmpty() || email.isEmpty() || mensaje.isEmpty()) {
                     Toast.makeText(ContactoActivity.this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
+                    return;
                 }
-            };
+
+                // Llamamos a la función que se conecta con el backend
+                enviarContactoBackend(nombre, email, mensaje);
+            }
         });
         btnGaleria.setOnClickListener(g -> {
             Intent intent = new Intent(ContactoActivity.this, GaleriaActivity.class);
             startActivity(intent);
         });
+    }
+    private void enviarContactoBackend(String nombre, String email, String mensaje) {
+        btnEnviarContacto.setEnabled(false); // Evita múltiples clics seguidos
+
+        // La red debe ejecutarse en un hilo secundario en Android
+        new Thread(() -> {
+            int codigoRespuesta = -1;
+            HttpURLConnection conn = null;
+            try {
+                // Creamos el JSON con las claves exactas que espera tu ContactoSerializer
+                JSONObject json = new JSONObject();
+                json.put("nombre", nombre);
+                json.put("email", email);
+                json.put("mensaje", mensaje);
+
+                URL url = new URL(URL_INTERACCION);
+                conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("POST");
+                conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
+                conn.setConnectTimeout(8000);
+                conn.setReadTimeout(8000);
+                conn.setDoOutput(true);
+
+                // Enviamos los datos por POST
+                try (OutputStream os = conn.getOutputStream()) {
+                    os.write(json.toString().getBytes(StandardCharsets.UTF_8));
+                }
+
+                codigoRespuesta = conn.getResponseCode();
+            } catch (Exception e) {
+                codigoRespuesta = -1;
+            } finally {
+                if (conn != null) conn.disconnect();
+            }
+
+            final int resultado = codigoRespuesta;
+
+            // Volvemos al hilo principal para manipular la interfaz de usuario (Toast)
+            runOnUiThread(() -> manejarRespuesta(resultado));
+        }).start();
+    }
+
+    private void manejarRespuesta(int codigo) {
+        btnEnviarContacto.setEnabled(true); // Rehabilitamos el botón
+
+        // Criterio solicitado: Mostrar mensaje de éxito SOLO si responde con código 201
+        if (codigo == 201) {
+            Toast.makeText(ContactoActivity.this, "¡Consulta enviada con éxito!", Toast.LENGTH_LONG).show();
+            // Limpiamos los campos tras el éxito
+            etNombre.setText("");
+            etEmail.setText("");
+            etMensaje.setText("");
+        } else if (codigo == 400) {
+            Toast.makeText(ContactoActivity.this, "Datos inválidos o incompletos en el servidor", Toast.LENGTH_LONG).show();
+        } else if (codigo == -1) {
+            Toast.makeText(ContactoActivity.this, "No se pudo conectar con el servidor", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(ContactoActivity.this, "Error del servidor (" + codigo + ")", Toast.LENGTH_LONG).show();
+        }
     }
 }
