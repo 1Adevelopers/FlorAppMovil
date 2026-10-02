@@ -104,123 +104,17 @@
                 android:layout_marginBottom="5dp"/>
         </LinearLayout>
 
-    <!-- Ficha 1 -->
-    <LinearLayout
-        android:id="@+id/ficha1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:background="@drawable/input_fondo"
-        android:paddingBottom="5dp"
-        android:layout_marginBottom="10dp"
-        >
+    <!-- Fichas -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <!-- Img -->
-        <ImageView
-            android:layout_width="360dp"
-            android:layout_height="140dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_launcher_foreground" />
+            <!-- Contenedor de las fichas -->
+            <LinearLayout
+                android:id="@+id/contenedorEspecies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
 
-        <!-- Nombre Común -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Quebracho blanco"
-            android:textColor="@color/verde1"
-            android:orientation="vertical"
-            android:textStyle="bold"
-            android:layout_marginLeft="5dp" />
-
-        <!-- Nombre Científico -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Aspidosperma quebracho-blanco"
-            android:textStyle="italic"
-            android:orientation="vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="10dp" />
+        </ScrollView>
     </LinearLayout>
-
-    <!-- Ficha 2 -->
-    <LinearLayout
-        android:id="@+id/ficha2"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:background="@drawable/input_fondo"
-        android:paddingBottom="5dp"
-        android:layout_marginBottom="10dp"
-        >
-
-        <!-- Img -->
-        <ImageView
-            android:layout_width="360dp"
-            android:layout_height="140dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_launcher_foreground" />
-
-        <!-- Nombre Común -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Tala"
-            android:textColor="@color/verde1"
-            android:orientation="vertical"
-            android:textStyle="bold"
-            android:layout_marginLeft="5dp" />
-
-        <!-- Nombre Científico -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Celtis tala"
-            android:textStyle="italic"
-            android:orientation="vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="10dp" />
-    </LinearLayout>
-
-    <!-- Ficha 3 -->
-    <LinearLayout
-        android:id="@+id/ficha3"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:layout_gravity="center"
-        android:background="@drawable/input_fondo"
-        android:paddingBottom="5dp"
-        android:layout_marginBottom="10dp"
-        >
-
-        <!-- Img -->
-        <ImageView
-            android:layout_width="360dp"
-            android:layout_height="140dp"
-            android:layout_marginBottom="16dp"
-            android:src="@drawable/ic_launcher_foreground" />
-
-        <!-- Nombre Común -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Peperina"
-            android:textColor="@color/verde1"
-            android:orientation="vertical"
-            android:textStyle="bold"
-            android:layout_marginLeft="5dp" />
-
-        <!-- Nombre Científico -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Minthostachys verticillata"
-            android:textStyle="italic"
-            android:orientation="vertical"
-            android:layout_marginLeft="5dp"
-            android:layout_marginBottom="10dp" />
-    </LinearLayout>
-</LinearLayout>
