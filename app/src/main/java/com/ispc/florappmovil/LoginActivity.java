@@ -123,7 +123,7 @@ public class LoginActivity extends AppCompatActivity {
             MasterKey masterKey = new MasterKey.Builder(this)
                     .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
                     .build();
-            // Creamos un archivo local privado llamado FlorAppPrefs
+            // Se crea archivo local privado llamado FlorAppPrefsSeguro
             SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(this, "FlorAppPrefsSeguro",
                     masterKey,
                     EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
