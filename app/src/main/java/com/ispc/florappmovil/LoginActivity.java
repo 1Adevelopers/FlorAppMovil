@@ -19,6 +19,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import androidx.security.crypto.EncryptedSharedPreferences;
+import androidx.security.crypto.MasterKey;
+import android.content.SharedPreferences;
+
 
 public class LoginActivity extends AppCompatActivity {
     // 1. Declaración de variables para los componentes visuales
@@ -114,12 +118,23 @@ public class LoginActivity extends AppCompatActivity {
 
     // Método para almacenar el Token JWT en las preferencias del celular
     private void guardarTokenLocal(String token) {
-        // Creamos un archivo local privado llamado FlorAppPrefs
-        SharedPreferences sharedPref = getSharedPreferences("FlorAppPrefs", Context.MODE_PRIVATE);
-        SharedPreferences.Editor editor = sharedPref.edit();
+        try {
+            // 1. Crear la llave maestra para cifrar
+            MasterKey masterKey = new MasterKey.Builder(this)
+                    .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
+                    .build();
+            // Se crea archivo local privado llamado FlorAppPrefsSeguro
+            SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(this, "FlorAppPrefsSeguro",
+                    masterKey,
+                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
+                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
 
-        // Guardamos el token bajo la llave "JWT_TOKEN"
-        editor.putString("JWT_TOKEN", token);
-        editor.apply();
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.putString("JWT_TOKEN", token);
+            editor.apply();
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
     }
 }
