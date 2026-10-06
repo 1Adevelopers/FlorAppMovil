@@ -28,7 +28,7 @@
     <TextView
         android:id="@+id/tvDescripcionContacto"
         style="@style/TextoPrincipal"
-        android:layout_width="346dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="24dp"
         android:text="Elije una opción para ingresar a la plataforma" />

@@ -11,6 +11,13 @@
         <item name="android:textSize">24sp</item>
     </style>
 
+    <!-- Título modal -->
+    <style name="TituloModal">
+        <item name="android:fontFamily">@font/poppins_semi_bold</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
     <!-- Texto input -->
     <style name="TextoInput">
         <item name="android:fontFamily">@font/poppins_regular</item>
@@ -31,7 +38,7 @@
         <item name="android:layout_height">50dp</item>
         <item name="android:fontFamily">@font/poppins_medium</item>
         <item name="android:textColor">@color/white</item>
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">16sp</item>
         <item name="android:background">@drawable/boton_redondeado</item>
         <item name="backgroundTint">@null</item>
     </style>
