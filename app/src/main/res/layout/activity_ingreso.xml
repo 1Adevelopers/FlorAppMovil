@@ -7,16 +7,14 @@
     android:orientation="vertical"
     android:gravity="center"
     android:padding="32dp"
-    android:background="@color/verde_pastel">
+    android:background="@color/fondo">
 
     <!-- titulo -->
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="PANTALLA DE INGRESO"
-        android:textColor="@color/verde1"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:text="Te damos la bienvenida a"
+        style="@style/TituloPrincipal"
         android:layout_marginBottom="42dp" />
 
 

@@ -1,9 +1,32 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <!-- Base application theme. -->
     <style name="Base.Theme.FlorAppMovil" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
     </style>
 
     <style name="Theme.FlorAppMovil" parent="Base.Theme.FlorAppMovil" />
+
+    <!-- Títulos principales -->
+    <style name="TituloPrincipal">
+        <item name="android:fontFamily">@font/grandstander_semi_bold</item>
+        <item name="android:textColor">@color/verde1</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <!-- Texto input -->
+    <style name="TextoInput">
+        <item name="android:fontFamily">@font/poppins_regular</item>
+        <item name="android:textColor">@color/gris</item>
+        <item name="android:textSize">14sp</item>
+    </style>
+
+    <!-- Botón verde -->
+    <style name="BotonEstilo" parent="Widget.Material3.Button">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">50dp</item>
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="android:textSize">18sp</item>
+        <item name="android:background">@drawable/boton_redondeado</item>
+        <item name="backgroundTint">@null</item>
+    </style>
+
 </resources>

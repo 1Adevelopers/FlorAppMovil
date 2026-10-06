@@ -13,28 +13,26 @@
     <Button
         android:id="@+id/btnGaleria"
         android:layout_width="wrap_content"
-        android:layout_height="32dp"
-        android:backgroundTint="@color/verde1"
-        android:text="Regresar a Galería"
-        android:textColor="@color/white"
-        android:textSize="8sp"
+        android:layout_height="42dp"
+        android:layout_gravity="start"
         android:layout_marginBottom="120dp"
-        android:layout_marginRight="80dp"/>
+        android:background="@android:color/transparent"
+        android:textColor="@color/verde1"
+        android:text="Regresar a Galería"
+        android:textSize="12sp" />
 
-    <!-- titulo -->
     <TextView
         android:id="@+id/tvTituloContacto"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Contacto"
-        android:textColor="@color/verde1"
-        android:textSize="22sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="32dp" />
+        style="@style/TituloPrincipal"
+        android:layout_marginBottom="20dp" />
 
-    <!-- camop nombre -->
+    <!-- campo nombre -->
     <EditText
         android:id="@+id/etNombre"
+        style="@style/TextoInput"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="Nombre completo"
@@ -42,12 +40,12 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:background="@drawable/input_fondo"
-        android:textColor="@color/texto_principal"
         android:layout_marginBottom="16dp" />
 
     <!-- campo email -->
     <EditText
         android:id="@+id/etEmail"
+        style="@style/TextoInput"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="Correo electrónico"
@@ -55,12 +53,12 @@
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:background="@drawable/input_fondo"
-        android:textColor="@color/texto_principal"
         android:layout_marginBottom="16dp" />
 
     <!-- campo msj -->
     <EditText
         android:id="@+id/etMensaje"
+        style="@style/TextoInput"
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:hint="Dejanos tu consulta"
@@ -68,20 +66,13 @@
         android:gravity="top|start"
         android:padding="16dp"
         android:background="@drawable/input_fondo"
-        android:textColor="@color/texto_principal"
         android:layout_marginBottom="24dp" />
 
     <!-- btn -->
     <Button
         android:id="@+id/btnEnviarContacto"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:text="ENVIAR"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:background="@drawable/boton_redondeado"
-        app:backgroundTint="@null"
+        style="@style/BotonEstilo"
+        android:text="Enviar"
         android:layout_marginBottom="150dp"/>
 
 </LinearLayout>

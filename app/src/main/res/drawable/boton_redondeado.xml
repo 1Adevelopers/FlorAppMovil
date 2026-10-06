@@ -3,9 +3,9 @@
     android:shape="rectangle">
 
     <!-- Color de relleno verde -->
-    <solid android:color="@color/verde1" />
+    <solid android:color="@color/verde2" />
 
     <!-- Bordes redondeados -->
-    <corners android:radius="20dp" />
+    <corners android:radius="14dp" />
 
 </shape>
