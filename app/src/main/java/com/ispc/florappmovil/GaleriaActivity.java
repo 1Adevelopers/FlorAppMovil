@@ -3,9 +3,10 @@ package com.ispc.florappmovil;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -21,33 +22,33 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import com.bumptech.glide.Glide;
+import com.ispc.florappmovil.api.RetrofitClient;
+import android.widget.Spinner;
+import java.util.ArrayList;
+import java.util.List;
+
+
 
 public class GaleriaActivity extends AppCompatActivity {
 
-    private static final String URL_ESPECIES = "http://192.168.0.111:8000/api/flora/especies/";
-    private Button btnFiltroTodas;
-    private Button btnFiltroArboles;
-    private Button btnFiltroArbustos;
-    private Button btnFiltroHierbas;
+    private static final String URL_ESPECIES = RetrofitClient.getBaseUrl() + "api/flora/especies/";
+    private static final String URL_CATEGORIAS = RetrofitClient.getBaseUrl() + "api/flora/categorias/";
 
     private Button btnContacto;
-
     private Button btnPerfil;
-
     private LinearLayout contenedorEspecies;
+    private Spinner spinnerCategorias;
+    private List<String> listaCategorias = new ArrayList<>();
+    private JSONArray todasLasEspecies = new JSONArray();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galeria);
-
-        btnFiltroTodas = findViewById(R.id.btnFiltroTodas);
-        btnFiltroArboles = findViewById(R.id.btnFiltroArboles);
-        btnFiltroArbustos = findViewById(R.id.btnFiltroArbustos);
-        btnFiltroHierbas = findViewById(R.id.btnFiltroHierbas);
         btnContacto = findViewById(R.id.btnContacto);
         btnPerfil = findViewById(R.id.btnPerfil);
 
+        spinnerCategorias = findViewById(R.id.spinnerCategorias);
         contenedorEspecies = findViewById(R.id.contenedorEspecies);
 
 
@@ -61,24 +62,81 @@ public class GaleriaActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        btnFiltroTodas.setOnClickListener(v ->
-                Toast.makeText(GaleriaActivity.this, "Filtro: Todas", Toast.LENGTH_SHORT).show()
-        );
+        listaCategorias.add("Todas las categorías");
+        listaCategorias.add("Todas las categorías");
+        spinnerCategorias.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                String categoriaSeleccionada = listaCategorias.get(position);
+                filtrarYMostrarEspecies(categoriaSeleccionada);
+            }
 
-        btnFiltroArboles.setOnClickListener(v ->
-                Toast.makeText(GaleriaActivity.this, "Filtro: Árboles", Toast.LENGTH_SHORT).show()
-        );
 
-        btnFiltroArbustos.setOnClickListener(v ->
-                Toast.makeText(GaleriaActivity.this, "Filtro: Arbustos", Toast.LENGTH_SHORT).show()
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
-        );
 
-        btnFiltroHierbas.setOnClickListener(v ->
-                Toast.makeText(GaleriaActivity.this, "Filtro: Hierbas", Toast.LENGTH_SHORT).show()
-        );
-
+        obtenerCategoriasBackend();
         obtenerEspeciesBackend();
+    }
+
+
+    private void obtenerCategoriasBackend() {
+        new Thread(() -> {
+            try {
+                URL url = new URL(URL_CATEGORIAS);
+                HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                conn.setRequestMethod("GET");
+                conn.setConnectTimeout(8000);
+
+
+                if (conn.getResponseCode() == 200) {
+                    BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                    StringBuilder sb = new StringBuilder();
+                    String linea;
+                    while ((linea = reader.readLine()) != null) sb.append(linea);
+                    reader.close();
+
+
+                    JSONArray arrayCat = new JSONArray(sb.toString());
+                    listaCategorias.clear();
+                    listaCategorias.add("Todas las categorías");
+
+
+                    for (int i = 0; i < arrayCat.length(); i++) {
+                        JSONObject cat = arrayCat.getJSONObject(i);
+                        String nombreCat = cat.optString("categoria", "");
+
+
+                        if (!nombreCat.isEmpty()) {
+                            listaCategorias.add(nombreCat);
+                        }
+                    }
+
+
+                    runOnUiThread(this::actualizarSpinner);
+                }
+                conn.disconnect();
+            } catch (Exception e) {
+                runOnUiThread(() -> Toast.makeText(GaleriaActivity.this, "Error al cargar categorías", Toast.LENGTH_SHORT).show());
+            }
+        }).start();
+    }
+
+    private void actualizarSpinner() {
+
+
+        ArrayAdapter<String> adapter =
+                new ArrayAdapter<>(
+                        this,
+                        android.R.layout.simple_spinner_dropdown_item,
+                        listaCategorias
+                );
+
+
+        spinnerCategorias.setAdapter(adapter);
     }
 
     private void obtenerEspeciesBackend() {
@@ -86,6 +144,7 @@ public class GaleriaActivity extends AppCompatActivity {
             String respuestaJson = "";
             int codigoRespuesta = -1;
             HttpURLConnection conn = null;
+
 
             try {
                 URL url = new URL(URL_ESPECIES);
@@ -95,7 +154,9 @@ public class GaleriaActivity extends AppCompatActivity {
                 conn.setConnectTimeout(8000);
                 conn.setReadTimeout(8000);
 
+
                 codigoRespuesta = conn.getResponseCode();
+
 
                 if (codigoRespuesta == 200) {
                     BufferedReader reader = new BufferedReader(new InputStreamReader(conn.getInputStream()));
@@ -113,100 +174,27 @@ public class GaleriaActivity extends AppCompatActivity {
                 if (conn != null) conn.disconnect();
             }
 
+
             final int estado = codigoRespuesta;
             final String jsonFinal = respuestaJson;
+
 
             runOnUiThread(() -> manejarRespuestaEspecies(estado, jsonFinal));
         }).start();
     }
-
     private void manejarRespuestaEspecies(int codigo, String json) {
         if (codigo == 200 && !json.isEmpty()) {
             try {
-                JSONArray listaEspecies = new JSONArray(json);
-                contenedorEspecies.removeAllViews();
+                todasLasEspecies = new JSONArray(json);
 
-                for (int i = 0; i < listaEspecies.length(); i++) {
-                    JSONObject especie = listaEspecies.getJSONObject(i);
-                    String nombreComun = especie.optString("nombre_comun", "Sin nombre");
-                    String nombreCientifico = especie.optString("nombre_cientifico", "Sin nombre científico");
 
-                    // Crear el estilo de la Ficha
-                    LinearLayout tarjeta = new LinearLayout(this);
-                    tarjeta.setOrientation(LinearLayout.VERTICAL);
-                    tarjeta.setBackgroundResource(R.drawable.input_fondo);
-                    tarjeta.setPadding(0, 0, 0, dpToPx(8));
+                String categoriaSeleccionada = spinnerCategorias.getSelectedItem() != null ?
+                        spinnerCategorias.getSelectedItem().toString() : "Todas las categorías";
 
-                    LinearLayout.LayoutParams paramsTarjeta = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                    );
-                    paramsTarjeta.setMargins(0, 0, 0, dpToPx(12));
-                    tarjeta.setLayoutParams(paramsTarjeta);
 
-                    // Imagen
-                    String urlImagen = "";
-                    JSONArray imagenes = especie.optJSONArray("imagenes");
+                filtrarYMostrarEspecies(categoriaSeleccionada);
 
-                    if (imagenes != null && imagenes.length() > 0) {
-                        JSONObject primeraImagen = imagenes.optJSONObject(0);
-                        if (primeraImagen != null) {
-                            urlImagen = primeraImagen.optString("url", "");
-                        }
-                    }
-                    
-                    if (urlImagen.startsWith("/")) {
-                        urlImagen = "http://192.168.0.111:8000" + urlImagen;
-                    }
 
-                    ImageView img = new ImageView(this);
-                    LinearLayout.LayoutParams paramsImg = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.MATCH_PARENT,
-                            dpToPx(140)
-                    );
-                    paramsImg.setMargins(0, 0, 0, dpToPx(16));
-                    img.setLayoutParams(paramsImg);
-                    img.setScaleType(ImageView.ScaleType.CENTER_CROP);
-
-                    if (!urlImagen.isEmpty()) {
-                        Glide.with(this)
-                                .load(urlImagen)
-                                .placeholder(R.drawable.ic_launcher_foreground)
-                                .error(R.drawable.ic_launcher_foreground)
-                                .into(img);
-                    } else {
-                        img.setImageResource(R.drawable.ic_launcher_foreground);
-                    }
-
-                    // Nombre Común
-                    TextView tvNombreComun = new TextView(this);
-                    tvNombreComun.setText(nombreComun);
-                    tvNombreComun.setTextColor(getResources().getColor(R.color.verde1));
-                    tvNombreComun.setTypeface(null, Typeface.BOLD);
-                    LinearLayout.LayoutParams paramsText1 = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.WRAP_CONTENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                    );
-                    paramsText1.setMargins(dpToPx(5), 0, 0, 0);
-                    tvNombreComun.setLayoutParams(paramsText1);
-
-                    // Nombre Científico
-                    TextView tvNombreCientifico = new TextView(this);
-                    tvNombreCientifico.setText(nombreCientifico);
-                    tvNombreCientifico.setTypeface(null, Typeface.ITALIC);
-                    LinearLayout.LayoutParams paramsText2 = new LinearLayout.LayoutParams(
-                            LinearLayout.LayoutParams.WRAP_CONTENT,
-                            LinearLayout.LayoutParams.WRAP_CONTENT
-                    );
-                    paramsText2.setMargins(dpToPx(5), 0, 0, dpToPx(10));
-                    tvNombreCientifico.setLayoutParams(paramsText2);
-
-                    tarjeta.addView(img);
-                    tarjeta.addView(tvNombreComun);
-                    tarjeta.addView(tvNombreCientifico);
-
-                    contenedorEspecies.addView(tarjeta);
-                }
             } catch (Exception e) {
                 Toast.makeText(this, "Error al procesar los datos de las plantas", Toast.LENGTH_SHORT).show();
             }
@@ -217,8 +205,193 @@ public class GaleriaActivity extends AppCompatActivity {
         }
     }
 
-    private int dpToPx(int dp) {
-        float density = getResources().getDisplayMetrics().density;
-        return Math.round((float) dp * density);
+    private void filtrarYMostrarEspecies(String categoriaFiltro) {
+        contenedorEspecies.removeAllViews();
+
+
+        try {
+            for (int i = 0; i < todasLasEspecies.length(); i++) {
+                JSONObject especie = todasLasEspecies.getJSONObject(i);
+
+
+                JSONObject categoriaDetalle =
+                        especie.optJSONObject(
+                                "categoria_detalle"
+                        );
+                String catEspecie = "";
+
+
+                if (categoriaDetalle != null) {
+                    catEspecie =
+                            categoriaDetalle.optString(
+                                    "categoria",
+                                    ""
+                            );
+                }
+
+
+                boolean mostrarTodas = categoriaFiltro.equals("Todas las categorías");
+                boolean coincideCategoria = catEspecie.equalsIgnoreCase(categoriaFiltro);
+
+
+                if (mostrarTodas || coincideCategoria) {
+                    crearTarjetaEspecie(especie);
+                }
+            }
+        } catch (Exception ignored) {
+        }
+    }
+    private void crearTarjetaEspecie(JSONObject especie) {
+
+
+        try {
+
+
+            View ficha = getLayoutInflater().inflate(
+                    R.layout.item_ficha,
+                    contenedorEspecies,
+                    false
+            );
+
+
+            ImageView img =
+                    ficha.findViewById(R.id.imgPlanta);
+
+
+            TextView tvDescripcion =
+                    ficha.findViewById(
+                            R.id.tvDescripcion
+                    );
+
+
+            TextView tvNombreComun =
+                    ficha.findViewById(R.id.tvNombreComun);
+
+
+            TextView tvNombreCientifico =
+                    ficha.findViewById(R.id.tvNombreCientifico);
+
+
+            TextView tvCategoria =
+                    ficha.findViewById(R.id.tvCategoria);
+
+
+            String descripcion =
+                    especie.optString(
+                            "descripcion",
+                            ""
+                    );
+
+
+            JSONObject categoriaDetalle =
+                    especie.optJSONObject(
+                            "categoria_detalle"
+                    );
+
+
+            String categoria = "";
+
+
+            if (categoriaDetalle != null) {
+
+
+                categoria =
+                        categoriaDetalle.optString(
+                                "categoria",
+                                ""
+                        );
+            }
+
+
+            String nombreComun =
+                    especie.optString(
+                            "nombre_comun",
+                            "Sin nombre"
+                    );
+
+
+            String nombreCientifico =
+                    especie.optString(
+                            "nombre_cientifico",
+                            "Sin nombre científico"
+                    );
+
+
+            tvDescripcion.setText(descripcion);
+            tvNombreComun.setText(nombreComun);
+            tvNombreCientifico.setText(nombreCientifico);
+            tvCategoria.setText(categoria);
+
+
+            String urlImagen = "";
+
+
+            JSONArray imagenes =
+                    especie.optJSONArray("imagenes");
+
+
+            if (imagenes != null &&
+                    imagenes.length() > 0) {
+
+
+                JSONObject primeraImagen =
+                        imagenes.optJSONObject(0);
+
+
+                if (primeraImagen != null) {
+                    urlImagen =
+                            primeraImagen.optString("url", ""
+                            );
+                }
+            }
+
+
+            if (!urlImagen.isEmpty()) {
+
+
+                Glide.with(this)
+                        .load(urlImagen)
+                        .placeholder(R.drawable.ic_launcher_foreground)
+                        .error(R.drawable.ic_launcher_foreground).into(img);
+
+
+            } else {
+
+
+                img.setImageResource(R.drawable.ic_launcher_foreground);
+            }
+
+
+            ficha.setOnClickListener(v -> {
+
+
+                if (tvDescripcion.getVisibility() == View.GONE) {
+
+
+                    tvDescripcion.setVisibility(View.VISIBLE);
+
+
+                    img.setVisibility(View.GONE);
+                    tvCategoria.setVisibility(View.GONE);
+
+
+                } else {
+
+
+                    tvDescripcion.setVisibility(View.GONE);
+                    tvCategoria.setVisibility(View.VISIBLE);
+
+
+                    img.setVisibility(View.VISIBLE);
+                }
+            });
+
+
+            contenedorEspecies.addView(ficha);
+
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }
