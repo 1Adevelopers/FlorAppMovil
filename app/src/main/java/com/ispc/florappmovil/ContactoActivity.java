@@ -49,7 +49,6 @@ public class ContactoActivity extends AppCompatActivity {
                     return;
                 }
 
-                // Llamamos a la función que se conecta con el backend
                 enviarContactoBackend(nombre, email, mensaje);
             }
         });
@@ -59,14 +58,12 @@ public class ContactoActivity extends AppCompatActivity {
         });
     }
     private void enviarContactoBackend(String nombre, String email, String mensaje) {
-        btnEnviarContacto.setEnabled(false); // Evita múltiples clics seguidos
+        btnEnviarContacto.setEnabled(false);
 
-        // La red debe ejecutarse en un hilo secundario en Android
         new Thread(() -> {
             int codigoRespuesta = -1;
             HttpURLConnection conn = null;
             try {
-                // Creamos el JSON con las claves exactas que espera tu ContactoSerializer
                 JSONObject json = new JSONObject();
                 json.put("nombre", nombre);
                 json.put("email", email);
@@ -80,7 +77,6 @@ public class ContactoActivity extends AppCompatActivity {
                 conn.setReadTimeout(8000);
                 conn.setDoOutput(true);
 
-                // Enviamos los datos por POST
                 try (OutputStream os = conn.getOutputStream()) {
                     os.write(json.toString().getBytes(StandardCharsets.UTF_8));
                 }
@@ -94,18 +90,15 @@ public class ContactoActivity extends AppCompatActivity {
 
             final int resultado = codigoRespuesta;
 
-            // Volvemos al hilo principal para manipular la interfaz de usuario (Toast)
             runOnUiThread(() -> manejarRespuesta(resultado));
         }).start();
     }
 
     private void manejarRespuesta(int codigo) {
-        btnEnviarContacto.setEnabled(true); // Rehabilitamos el botón
+        btnEnviarContacto.setEnabled(true);
 
-        // Criterio solicitado: Mostrar mensaje de éxito SOLO si responde con código 201
         if (codigo == 201) {
             Toast.makeText(ContactoActivity.this, "¡Consulta enviada con éxito!", Toast.LENGTH_LONG).show();
-            // Limpiamos los campos tras el éxito
             etNombre.setText("");
             etEmail.setText("");
             etMensaje.setText("");

@@ -7,6 +7,7 @@
     <domain-config cleartextTrafficPermitted="true">
         <!-- REEMPLAZA ESTA IP POR LA DE TU PC (la misma del RetrofitClient) -->
         <domain includeSubdomains="true">192.168.1.231</domain>
+        <domain includeSubdomains="true">192.168.120.54</domain>
         <domain includeSubdomains="true">localhost</domain>
     </domain-config>
 </network-security-config>

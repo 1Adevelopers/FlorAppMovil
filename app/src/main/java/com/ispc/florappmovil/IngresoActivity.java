@@ -1,6 +1,9 @@
 package com.ispc.florappmovil;
 
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -34,10 +37,29 @@ public class IngresoActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        // ingreso invitado (va a Galeria)
+        // ingreso invitado (modal)
         btnInvitado.setOnClickListener(v -> {
-            Intent intent = new Intent(IngresoActivity.this, GaleriaActivity.class);
-            startActivity(intent);
+            Dialog dialog = new Dialog(IngresoActivity.this);
+            dialog.setContentView(R.layout.modal_invitado); // Apunta a tu nuevo layout del modal
+
+            if (dialog.getWindow() != null) {
+                dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            }
+
+            Button btnModalIngresar = dialog.findViewById(R.id.btnModalIngresar);
+            Button btnModalVolver = dialog.findViewById(R.id.btnModalVolver);
+
+            btnModalIngresar.setOnClickListener(view -> {
+                dialog.dismiss();
+                Intent intent = new Intent(IngresoActivity.this, GaleriaActivity.class);
+                startActivity(intent);
+            });
+
+            btnModalVolver.setOnClickListener(view -> {
+                dialog.dismiss();
+            });
+
+            dialog.show();
         });
     }
 }
