@@ -15,6 +15,13 @@
     <style name="TextoInput">
         <item name="android:fontFamily">@font/poppins_regular</item>
         <item name="android:textColor">@color/gris</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <!-- Texto principal -->
+    <style name="TextoPrincipal">
+        <item name="android:fontFamily">@font/poppins_medium</item>
+        <item name="android:textColor">@color/texto_principal</item>
         <item name="android:textSize">14sp</item>
     </style>
 
