@@ -52,57 +52,13 @@
         android:layout_marginBottom="5dp"/>
 
     <!-- Filtros -->
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+        <Spinner
+        android:id="@+id/spinnerCategorias"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:background="@drawable/input_fondo"
+        android:layout_marginBottom="16dp"/>
 
-            <!-- Filtro 1 -->
-            <Button
-                android:id="@+id/btnFiltroTodas"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:text="Todas"
-                android:textAllCaps="false"
-                android:textSize="10sp"
-                android:textColor="#000"
-                android:backgroundTint="#DCDCDC"
-                android:layout_marginEnd="5dp" />
-
-            <Button
-                android:id="@+id/btnFiltroArboles"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:text="Árboles"
-                android:textAllCaps="false"
-                android:textSize="10sp"
-                android:textColor="#000"
-                android:backgroundTint="@color/verde_pastel"
-                android:layout_marginEnd="5dp" />
-
-            <Button
-                android:id="@+id/btnFiltroArbustos"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:text="Arbustos"
-                android:textAllCaps="false"
-                android:textSize="10sp"
-                android:textColor="#000"
-                android:backgroundTint="@color/salmon"
-                android:layout_marginEnd="5dp" />
-
-            <Button
-                android:id="@+id/btnFiltroHierbas"
-                android:layout_width="wrap_content"
-                android:layout_height="32dp"
-                android:text="Hierbas"
-                android:textAllCaps="false"
-                android:textSize="10sp"
-                android:textColor="#000"
-                android:backgroundTint="@color/amarillo_pastel"
-                android:layout_marginEnd="5dp"
-                android:layout_marginBottom="5dp"/>
-        </LinearLayout>
 
     <!-- Fichas -->
         <ScrollView

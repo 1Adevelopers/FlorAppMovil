@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="12dp"
+    android:orientation="vertical"
+    android:background="@drawable/input_fondo"
+    android:clipToOutline="true">
+
+
+    <!-- Imagen -->
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/imgPlanta"
+        android:layout_width="match_parent"
+        android:layout_height="180dp"
+        android:scaleType="centerCrop"/>
+
+
+    <!-- Categoría -->
+    <TextView
+        android:id="@+id/tvCategoria"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:paddingStart="12dp"
+        android:paddingEnd="12dp"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:textColor="@android:color/white"
+        android:background="#BFBFBF"
+        android:textSize="12sp"
+        android:textStyle="bold"/>
+
+
+    <!-- Nombre común -->
+    <TextView
+        android:id="@+id/tvNombreComun"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textColor="@color/verde1"
+        android:textSize="20sp"
+        android:padding="8dp"/>
+
+
+    <!-- Nombre Científico -->
+    <TextView
+        android:id="@+id/tvNombreCientifico"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingStart="8dp"
+        android:paddingBottom="8dp"/>
+
+
+    <!-- Descripción -->
+    <TextView
+        android:id="@+id/tvDescripcion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/black"
+        android:padding="8dp"
+        android:visibility="gone"/>
+
+
+</LinearLayout>
