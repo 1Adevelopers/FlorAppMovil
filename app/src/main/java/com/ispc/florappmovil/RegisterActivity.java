@@ -21,7 +21,7 @@ import java.nio.charset.StandardCharsets;
 public class RegisterActivity extends AppCompatActivity {
 
     // Emulador + Django en tu compu: 10.0.2.2. Cambiar según el entorno del equipo.
-    private static final String URL_REGISTRO = "http://10.0.2.2:8000/api/usuarios/usuarios/";
+    private static final String URL_REGISTRO = "http://192.168.1.107:8000/api/usuarios/";
 
     private EditText etNombre, etApellido, etEmail, etPassword, etConfirmarPassword;
     private Button btnRegistrar, btnArrepentimiento;
