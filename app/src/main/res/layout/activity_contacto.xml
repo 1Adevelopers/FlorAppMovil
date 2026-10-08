@@ -44,13 +44,14 @@
         android:id="@+id/etNombre"
         style="@style/TextoPrincipal"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:hint="Nombre completo"
         android:textColorHint="@color/gris"
         android:inputType="textPersonName"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:background="@drawable/input_fondo"
+        android:textColor="@color/texto_principal"
         android:layout_marginBottom="16dp" />
 
     <!-- campo email -->
@@ -58,7 +59,7 @@
         android:id="@+id/etEmail"
         style="@style/TextoPrincipal"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="48dp"
         android:hint="Correo electrónico"
         android:textColorHint="@color/gris"
         android:inputType="textEmailAddress"
@@ -85,6 +86,7 @@
     <Button
         android:id="@+id/btnEnviarContacto"
         style="@style/BotonEstilo"
+        android:layout_height="50dp"
         android:text="Enviar"
         android:layout_marginBottom="30dp"/>
 
