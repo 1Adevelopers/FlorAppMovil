@@ -13,70 +13,65 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="INICIAR SESIÓN"
-        android:textColor="@color/verde1"
-        android:textSize="18sp"
-        android:textStyle="bold"
+        android:text="Iniciar sesión"
+        style="@style/TituloPrincipal"
         android:layout_marginBottom="32dp" />
 
     <!-- 2. Campo de entrada para el Usuario -->
     <EditText
         android:id="@+id/etUsuario"
+        style="@style/TextoPrincipal"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:hint="Nombre de usuario"
-        android:inputType="textPersonName"
+        android:layout_height="48dp"
+        android:hint="Email"
+        android:textColorHint="@color/gris"
+        android:inputType="textEmailAddress"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:background="@drawable/input_fondo"
-        android:textColor="@color/texto_principal"
         android:layout_marginBottom="16dp" />
 
     <!-- 3. Campo de entrada para la Contraseña -->
     <EditText
         android:id="@+id/etPassword"
+        style="@style/TextoPrincipal"
         android:layout_width="match_parent"
-        android:layout_height="50dp"
+        android:layout_height="48dp"
         android:hint="Contraseña"
+        android:textColorHint="@color/gris"
         android:inputType="textPassword"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:background="@drawable/input_fondo"
-        android:textColor="@color/texto_principal"
         android:layout_marginBottom="24dp" />
 
     <!-- 4. Botón de Acción -->
     <Button
         android:id="@+id/btnLogin"
+        style="@style/BotonEstilo"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:text="INGRESAR"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:background="@drawable/boton_redondeado"
-        app:backgroundTint="@null"/>
+        android:text="Ingresar"
+        />
 
     <TextView
         android:id="@+id/tvInvitado"
+        style="@style/TextoCursiva"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Ingresar como Invitado"
-        android:textColor="@color/gris"
-        android:textSize="14sp"
         android:padding="16dp"
-        android:layout_marginTop="5dp"
+        android:layout_marginTop="32dp"
         android:clickable="true"
         android:focusable="true" />
 
     <TextView
         android:id="@+id/tvIrARegistro"
+        style="@style/TextoCursiva"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="¿No tenés cuenta? Registrate"
-        android:textColor="@color/verde1"
-        android:textSize="14sp"
-        android:padding="16dp"
+        android:padding="8dp"
         android:clickable="true"
         android:focusable="true" />
 </LinearLayout>

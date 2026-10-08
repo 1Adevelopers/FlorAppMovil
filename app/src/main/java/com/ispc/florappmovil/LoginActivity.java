@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -21,15 +22,13 @@ import retrofit2.Response;
 
 import androidx.security.crypto.EncryptedSharedPreferences;
 import androidx.security.crypto.MasterKey;
-import android.content.SharedPreferences;
-
 
 public class LoginActivity extends AppCompatActivity {
     // 1. Declaración de variables para los componentes visuales
     private EditText etUsuario;
     private EditText etPassword;
     private Button btnLogin;
-    private android.widget.TextView tvIrARegistro;
+    private TextView tvIrARegistro;
     private TextView tvInvitado;
 
     @Override
@@ -61,17 +60,20 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // 4. Extracción y limpieza de datos
-                String usuario = etUsuario.getText().toString().trim();
+                String email = etUsuario.getText().toString().trim();
                 String password = etPassword.getText().toString().trim();
 
                 // 5. Validación de campos
-                if (!usuario.isEmpty() && !password.isEmpty()) {
-                    // llamamos al backend enviando los datos.
-                    realizarLogin(usuario, password);
-                } else {
-                    // Si faltan datos, mostramos un mensaje temporal (Toast)
+                if (email.isEmpty() || password.isEmpty()) {
                     Toast.makeText(LoginActivity.this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
+                    return;
                 }
+                if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+                    etUsuario.setError("Ingrese un correo electrónico válido");
+                    etUsuario.requestFocus();
+                    return;
+                }
+                realizarLogin(email, password);
             }
         });
     }
