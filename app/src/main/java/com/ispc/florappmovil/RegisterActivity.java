@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ispc.florappmovil.api.RetrofitClient;
 import org.json.JSONObject;
 
 import java.io.OutputStream;
@@ -21,7 +22,7 @@ import java.nio.charset.StandardCharsets;
 public class RegisterActivity extends AppCompatActivity {
 
     // Emulador + Django en tu compu: 10.0.2.2. Cambiar según el entorno del equipo.
-    private static final String URL_REGISTRO = "http://192.168.120.54:8000/api/usuarios/";
+    private static final String URL_REGISTRO = RetrofitClient.getBaseUrl() + "api/usuarios/";
 
     private EditText etNombre, etApellido, etEmail, etPassword, etConfirmarPassword;
     private Button btnRegistrar, btnArrepentimiento;
