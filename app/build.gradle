@@ -2,6 +2,16 @@ plugins {
     id 'com.android.application'
 }
 
+
+// IP del servidor Django: se lee de local.properties (florapp.ip=...).
+// Ese archivo no se sube a GitHub. Si no existe la línea, usa 10.0.2.2 (emulador).
+def localProps = new Properties()
+def localPropsFile = rootProject.file('local.properties')
+if (localPropsFile.exists()) {
+    localPropsFile.withInputStream { localProps.load(it) }
+}
+def florappIp = localProps.getProperty('florapp.ip', '10.0.2.2').trim()
+
 android {
     namespace 'com.ispc.florappmovil'
     compileSdk 33
@@ -14,6 +24,13 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Dirección base de la API, armada con la IP de local.properties
+        buildConfigField "String", "BASE_URL", "\"http://${florappIp}:8000/\""
+    }
+
+    buildFeatures {
+        buildConfig true
     }
 
     buildTypes {
