@@ -1,8 +1,13 @@
 package com.ispc.florappmovil.api;
 
+import com.ispc.florappmovil.models.Categoria;
+import com.ispc.florappmovil.models.ContactoRequest;
+import com.ispc.florappmovil.models.Especie;
 import com.ispc.florappmovil.models.LoginRequest;
 import com.ispc.florappmovil.models.TokenResponse;
 import com.ispc.florappmovil.models.Usuario;
+
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.http.Body;
@@ -26,4 +31,23 @@ public interface FlorAppApi {
     Call<Usuario> actualizarUsuario(@Header("Authorization") String token,
                                     @Path("id") int id,
                                     @Body Usuario usuario);
+
+    // Crea un nuevo docente (Registro). Retorna HTTP 201.
+    @POST("api/usuarios/")
+    Call<Usuario> registrarUsuario(@Body Usuario usuario);
+
+    // Trae el listado completo de categorías para el Spinner
+    @GET("api/flora/categorias/")
+    Call<List<Categoria>> obtenerCategorias();
+
+    // Trae el listado completo de especies para el RecyclerView
+    @GET("api/flora/especies/")
+    Call<List<Especie>> obtenerEspecies();
+
+    // Envía el formulario de contacto. Retorna HTTP 201.
+    // Usamos Call<Void> porque solo nos interesa saber si fue exitoso, no necesitamos leer el JSON de respuesta.
+    @POST("api/interacciones/")
+    Call<Void> enviarContacto(@Body ContactoRequest contacto);
+
+
 }
