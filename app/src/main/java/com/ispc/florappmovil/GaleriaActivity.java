@@ -57,10 +57,20 @@ public class GaleriaActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        btnPerfil.setOnClickListener(v -> {
-            Intent intent = new Intent(GaleriaActivity.this, ProfileActivity.class);
-            startActivity(intent);
-        });
+        if (new SessionManager(this).haySesion()) {
+            // Usuario logueado: el botón abre su perfil
+            btnPerfil.setOnClickListener(v -> {
+                Intent intent = new Intent(GaleriaActivity.this, ProfileActivity.class);
+                startActivity(intent);
+            });
+        } else {
+            // Invitado: el mismo botón invita a iniciar sesión (desde ahí puede registrarse)
+            btnPerfil.setText("Iniciar sesión");
+            btnPerfil.setOnClickListener(v -> {
+                Intent intent = new Intent(GaleriaActivity.this, LoginActivity.class);
+                startActivity(intent);
+            });
+        }
 
         listaCategorias.add("Todas las categorías");
         listaCategorias.add("Todas las categorías");
