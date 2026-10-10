@@ -6,6 +6,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.util.Patterns;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -52,6 +53,7 @@ public class ProfileActivity extends AppCompatActivity {
         etEmail = findViewById(R.id.etEmail);
 
         tvVolver.setOnClickListener(v -> finish());
+        btnModificar.setOnClickListener(v -> actualizarPerfil());
 
         // Botones Modificar y Cerrar sesión: se programan en las partes 4 y 5
         btnCerrar.setOnClickListener(v ->
@@ -82,6 +84,56 @@ public class ProfileActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(Call<Usuario> call, Throwable t) {
+                        Toast.makeText(ProfileActivity.this,
+                                "Error de red: comprobá tu conexión", Toast.LENGTH_LONG).show();
+                    }
+                });
+    }
+
+    // PUT /api/usuarios/{id}/ : guarda los cambios del perfil
+    private void actualizarPerfil() {
+        String nombre = etNombre.getText().toString().trim();
+        String apellido = etApellido.getText().toString().trim();
+        String email = etEmail.getText().toString().trim();
+
+        if (nombre.isEmpty() || apellido.isEmpty() || email.isEmpty()) {
+            Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
+            etEmail.setError("Ingrese un correo electrónico válido");
+            etEmail.requestFocus();
+            return;
+        }
+
+        btnModificar.setEnabled(false); // evita envíos dobles
+        Usuario datos = new Usuario(nombre, apellido, email);
+
+        api.actualizarUsuario(sesion.obtenerHeaderAutorizacion(), sesion.obtenerUsuarioId(), datos)
+                .enqueue(new Callback<Usuario>() {
+                    @Override
+                    public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                        btnModificar.setEnabled(true);
+                        if (response.isSuccessful()) {
+                            Toast.makeText(ProfileActivity.this,
+                                    "Perfil actualizado con éxito", Toast.LENGTH_SHORT).show();
+                        } else if (response.code() == 401) {
+                            sesionVencida();
+                        } else if (response.code() == 400) {
+                            Toast.makeText(ProfileActivity.this,
+                                    "Datos inválidos o el email ya está en uso", Toast.LENGTH_LONG).show();
+                        } else if (response.code() == 403) {
+                            Toast.makeText(ProfileActivity.this,
+                                    "No tenés permiso para modificar este perfil", Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(ProfileActivity.this,
+                                    "Error del servidor (" + response.code() + ")", Toast.LENGTH_LONG).show();
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<Usuario> call, Throwable t) {
+                        btnModificar.setEnabled(true);
                         Toast.makeText(ProfileActivity.this,
                                 "Error de red: comprobá tu conexión", Toast.LENGTH_LONG).show();
                     }
