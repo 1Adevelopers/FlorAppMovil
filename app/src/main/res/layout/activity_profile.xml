@@ -31,10 +31,11 @@
 
 
     <EditText
-        android:id="@+id/etCampo1"
+        android:id="@+id/etNombre"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:hint="Nombre de usuario"
+        android:hint="Nombre"
+        android:inputType="textPersonName|textCapWords"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:background="@drawable/boton_redondeado"
@@ -42,10 +43,23 @@
 
 
     <EditText
-        android:id="@+id/etCampo2"
+        android:id="@+id/etApellido"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:hint="Apellido"
+        android:inputType="textPersonName|textCapWords"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp"
+        android:background="@drawable/boton_redondeado"
+        android:layout_marginBottom="16dp" />
+
+
+    <EditText
+        android:id="@+id/etEmail"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:hint="Correo electrónico"
+        android:inputType="textEmailAddress"
         android:paddingStart="16dp"
         android:paddingEnd="16dp"
         android:background="@drawable/boton_redondeado"
@@ -59,7 +73,8 @@
         android:text="MODIFICAR"
         android:textColor="@android:color/white"
         android:textStyle="bold"
-        android:backgroundTint="@color/verde2" />
+        android:backgroundTint="@color/verde2"
+        android:layout_marginBottom="12dp" />
 
     <Button
         android:id="@+id/btnCerrar"
