@@ -56,7 +56,7 @@ public class ProfileActivity extends AppCompatActivity {
         btnModificar.setOnClickListener(v -> actualizarPerfil());
 
         // Botones Modificar y Cerrar sesión: se programan en las partes 4 y 5
-        btnCerrar.setOnClickListener(v ->
+        btnCerrar.setOnClickListener(v -> cerrarSesion());
                 startActivity(new Intent(ProfileActivity.this, IngresoActivity.class)));
 
         cargarPerfil();
@@ -145,6 +145,13 @@ public class ProfileActivity extends AppCompatActivity {
         sesion.cerrarSesion();
         Toast.makeText(this, "Tu sesión venció. Volvé a iniciar sesión.", Toast.LENGTH_LONG).show();
         irA(LoginActivity.class);
+    }
+
+    // Cerrar sesión: borra el token y vuelve a la pantalla de ingreso
+    private void cerrarSesion() {
+        sesion.cerrarSesion();
+        Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
+        irA(IngresoActivity.class);
     }
 
     // Abre una pantalla y borra el historial, así con "Atrás" no se vuelve al perfil
