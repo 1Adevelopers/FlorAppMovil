@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!--
+    Solo para pruebas (botón Run). Permite HTTP hacia cualquier IP,
+    así cada compañero usa la suya desde local.properties.
+    La versión final (release) usa el archivo de src/main, que exige HTTPS.
+-->
+<network-security-config>
+    <base-config cleartextTrafficPermitted="true" />
+</network-security-config>

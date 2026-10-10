@@ -9,6 +9,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.ispc.florappmovil.api.RetrofitClient;
+
 import org.json.JSONObject;
 
 import java.io.OutputStream;
@@ -18,7 +20,7 @@ import java.nio.charset.StandardCharsets;
 
 public class ContactoActivity extends AppCompatActivity {
 
-    private static final String URL_INTERACCION = "http://192.168.1.231:8000/api/interacciones/";
+    private static final String URL_INTERACCION = RetrofitClient.getBaseUrl() + "api/interacciones/";
     private EditText etNombre;
     private EditText etEmail;
     private EditText etMensaje;

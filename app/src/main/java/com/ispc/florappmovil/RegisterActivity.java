@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ispc.florappmovil.api.RetrofitClient;
 import org.json.JSONObject;
 
 import java.io.OutputStream;
@@ -21,7 +22,7 @@ import java.nio.charset.StandardCharsets;
 public class RegisterActivity extends AppCompatActivity {
 
     // Emulador + Django en tu compu: 10.0.2.2. Cambiar según el entorno del equipo.
-    private static final String URL_REGISTRO = "http://192.168.1.231:8000/api/usuarios/";
+    private static final String URL_REGISTRO = RetrofitClient.getBaseUrl() + "api/usuarios/";
 
     private EditText etNombre, etApellido, etEmail, etPassword, etConfirmarPassword;
     private Button btnRegistrar, btnArrepentimiento;
@@ -54,8 +55,10 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegistrar.setOnClickListener(v -> intentarRegistro());
 
         tvVolverALogin.setOnClickListener(v -> finish());
-        tvInvitado.setOnClickListener(v ->
-                startActivity(new Intent(RegisterActivity.this, GaleriaActivity.class)));
+        tvInvitado.setOnClickListener(v -> {
+            new SessionManager(RegisterActivity.this).cerrarSesion(); // invitado: sin sesión
+            startActivity(new Intent(RegisterActivity.this, GaleriaActivity.class));
+        });
     }
 
     private void actualizarBotonRegistrar(boolean habilitado) {
