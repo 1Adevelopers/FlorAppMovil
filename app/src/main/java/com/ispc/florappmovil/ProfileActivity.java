@@ -55,9 +55,7 @@ public class ProfileActivity extends AppCompatActivity {
         tvVolver.setOnClickListener(v -> finish());
         btnModificar.setOnClickListener(v -> actualizarPerfil());
 
-        // Botones Modificar y Cerrar sesión: se programan en las partes 4 y 5
         btnCerrar.setOnClickListener(v -> cerrarSesion());
-                startActivity(new Intent(ProfileActivity.this, IngresoActivity.class)));
 
         cargarPerfil();
     }
