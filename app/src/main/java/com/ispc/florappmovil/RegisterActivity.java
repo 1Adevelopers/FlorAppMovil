@@ -1,5 +1,8 @@
 package com.ispc.florappmovil;
 
+import com.ispc.florappmovil.models.Usuario;
+import com.ispc.florappmovil.api.FlorAppApi;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
@@ -12,12 +15,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.ispc.florappmovil.api.RetrofitClient;
-import org.json.JSONObject;
 
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class RegisterActivity extends AppCompatActivity {
 
@@ -101,38 +103,35 @@ public class RegisterActivity extends AppCompatActivity {
     private void registrarEnBackend(String nombre, String apellido, String email, String password) {
         actualizarBotonRegistrar(false); // evita envíos dobles
 
-        // La red no se puede usar en el hilo principal: se hace en un hilo aparte
-        new Thread(() -> {
-            int codigo = -1; // -1 = no se pudo conectar
-            HttpURLConnection conn = null;
-            try {
-                JSONObject json = new JSONObject();
-                json.put("nombre", nombre);
-                json.put("apellido", apellido);
-                json.put("email", email);
-                json.put("contrasena", password);
-                // No se envía "rol": el backend asigna el rol por defecto
+        // Creamos la instancia del modelo Usuario que armó el equipo
+        Usuario usuario = new Usuario(nombre, apellido, email, password);
 
-                conn = (HttpURLConnection) new URL(URL_REGISTRO).openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-                conn.setConnectTimeout(8000);
-                conn.setReadTimeout(8000);
-                conn.setDoOutput(true);
+        // Obtenemos la instancia de la API a través de RetrofitClient
+        FlorAppApi api = RetrofitClient.getClient().create(FlorAppApi.class);
+        Call<Usuario> call = api.registrarUsuario(usuario);
 
-                try (OutputStream os = conn.getOutputStream()) {
-                    os.write(json.toString().getBytes(StandardCharsets.UTF_8));
+        call.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                actualizarBotonRegistrar(cbTerminos.isChecked());
+
+                if (response.code() == 201) {
+                    Toast.makeText(RegisterActivity.this, "Cuenta creada. Ya podés iniciar sesión", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                    finish();
+                } else if (response.code() == 400) {
+                    Toast.makeText(RegisterActivity.this, "Datos inválidos o el email ya está registrado", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Error del servidor (" + response.code() + ")", Toast.LENGTH_LONG).show();
                 }
-                codigo = conn.getResponseCode();
-            } catch (Exception e) {
-                codigo = -1; // sin log de datos: nunca se registra la contraseña
-            } finally {
-                if (conn != null) conn.disconnect();
             }
 
-            final int resultado = codigo;
-            runOnUiThread(() -> manejarRespuesta(resultado));
-        }).start();
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                actualizarBotonRegistrar(cbTerminos.isChecked());
+                Toast.makeText(RegisterActivity.this, "No se pudo conectar con el servidor", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void manejarRespuesta(int codigo) {
