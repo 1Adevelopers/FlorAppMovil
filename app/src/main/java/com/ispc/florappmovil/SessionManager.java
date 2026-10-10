@@ -70,7 +70,14 @@ public class SessionManager {
     }
 
     /** Borra el token y los datos de la sesión (cerrar sesión). */
+    /** Borra el token y los datos de la sesión (cerrar sesión). */
     public void cerrarSesion() {
-        prefs.edit().clear().apply();
+        // Se borra cada dato por su nombre: clear() no es confiable con EncryptedSharedPreferences.
+        // commit() asegura que se borre antes de seguir (apply() lo hace "más tarde").
+        prefs.edit()
+                .remove(CLAVE_TOKEN)
+                .remove(CLAVE_REFRESH)
+                .remove(CLAVE_USUARIO_ID)
+                .commit();
     }
 }

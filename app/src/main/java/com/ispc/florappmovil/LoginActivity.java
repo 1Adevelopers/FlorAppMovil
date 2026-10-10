@@ -48,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         tvInvitado.setOnClickListener(v -> {
+            new SessionManager(LoginActivity.this).cerrarSesion(); // invitado: sin sesión
             Intent intent = new Intent(LoginActivity.this, GaleriaActivity.class);
             startActivity(intent);
         });

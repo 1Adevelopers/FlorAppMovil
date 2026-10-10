@@ -55,8 +55,10 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegistrar.setOnClickListener(v -> intentarRegistro());
 
         tvVolverALogin.setOnClickListener(v -> finish());
-        tvInvitado.setOnClickListener(v ->
-                startActivity(new Intent(RegisterActivity.this, GaleriaActivity.class)));
+        tvInvitado.setOnClickListener(v -> {
+            new SessionManager(RegisterActivity.this).cerrarSesion(); // invitado: sin sesión
+            startActivity(new Intent(RegisterActivity.this, GaleriaActivity.class));
+        });
     }
 
     private void actualizarBotonRegistrar(boolean habilitado) {
