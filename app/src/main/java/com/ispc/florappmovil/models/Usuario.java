@@ -9,8 +9,8 @@ public class Usuario {
     private String nombre;
     private String apellido;
     private String email;
+    private String contrasena;
     private Integer rol;
-
     @SerializedName("rol_nombre")
     private String rolNombre;
 
@@ -22,6 +22,14 @@ public class Usuario {
         this.nombre = nombre;
         this.apellido = apellido;
         this.email = email;
+    }
+
+    /** Constructor para el registro de nuevos usuarios (con contraseña). */
+    public Usuario(String nombre, String apellido, String email, String contrasena) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.email = email;
+        this.contrasena = contrasena;
     }
 
     public Integer getId() {
@@ -38,6 +46,14 @@ public class Usuario {
 
     public String getEmail() {
         return email;
+    }
+
+    public String getContrasena() {
+        return contrasena;
+    }
+
+    public void setContrasena(String contrasena) {
+        this.contrasena = contrasena;
     }
 
     public Integer getRol() {
