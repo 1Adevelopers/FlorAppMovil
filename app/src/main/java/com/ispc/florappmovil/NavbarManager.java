@@ -50,14 +50,16 @@ public class NavbarManager {
             case "fichas":
                 if (btnFichas != null) {
                     btnFichas.setBackgroundResource(R.drawable.navbar_btn);
-                    btnFichas.getBackground().setTint(androidx.core.content.ContextCompat.getColor(activity, R.color.violeta));                    if (imgFichas != null) imgFichas.setColorFilter(Color.WHITE);
+                    btnFichas.getBackground().setTint(androidx.core.content.ContextCompat.getColor(activity, R.color.violeta));
+                    if (imgFichas != null) imgFichas.setColorFilter(Color.WHITE);
                     if (txtFichas != null) txtFichas.setTextColor(Color.WHITE);
                 }
                 break;
             case "contacto":
                 if (btnContacto != null) {
                     btnContacto.setBackgroundResource(R.drawable.navbar_btn);
-                    btnContacto.getBackground().setTint(androidx.core.content.ContextCompat.getColor(activity, R.color.naranja));                    if (imgContacto != null) imgContacto.setColorFilter(Color.WHITE);
+                    btnContacto.getBackground().setTint(androidx.core.content.ContextCompat.getColor(activity, R.color.naranja));
+                    if (imgContacto != null) imgContacto.setColorFilter(Color.WHITE);
                     if (txtContacto != null) txtContacto.setTextColor(Color.WHITE);
                 }
                 break;
@@ -65,14 +67,16 @@ public class NavbarManager {
             case "ingreso":
                 if (btnNavIngreso != null) {
                     btnNavIngreso.setBackgroundResource(R.drawable.navbar_btn);
-                    btnNavIngreso.getBackground().setTint(androidx.core.content.ContextCompat.getColor(activity, R.color.celeste));                    if (imgPerfilLogin != null) imgPerfilLogin.setColorFilter(Color.WHITE);
+                    btnNavIngreso.getBackground().setTint(androidx.core.content.ContextCompat.getColor(activity, R.color.celeste));
+                    if (imgPerfilLogin != null) imgPerfilLogin.setColorFilter(Color.WHITE);
                     if (txtIngreso != null) txtIngreso.setTextColor(Color.WHITE);
                 }
                 break;
             case "gestion":
                 if (btnGestion != null) {
                     btnGestion.setBackgroundResource(R.drawable.navbar_btn);
-                    btnGestion.getBackground().setTint(androidx.core.content.ContextCompat.getColor(activity, R.color.amarillo));                    if (imgGestion != null) imgGestion.setColorFilter(Color.WHITE);
+                    btnGestion.getBackground().setTint(androidx.core.content.ContextCompat.getColor(activity, R.color.amarillo));
+                    if (imgGestion != null) imgGestion.setColorFilter(Color.WHITE);
                     if (txtGestion != null) txtGestion.setTextColor(Color.WHITE);
                 }
                 break;
@@ -107,6 +111,23 @@ public class NavbarManager {
                 } else {
                     if (!(activity instanceof IngresoActivity)) {
                         activity.startActivity(new Intent(activity, IngresoActivity.class));
+                        activity.finish();
+                    }
+                }
+            });
+        }
+        if (btnGestion != null) {
+            btnGestion.setOnClickListener(v -> {
+                int rolIdActual = sessionManager.obtenerRolId();
+
+                if (rolIdActual == 1) {
+                    if (!(activity instanceof GestionFichasAdminActivity) && !(activity instanceof GestionUsuariosAdminActivity)) {
+                        activity.startActivity(new Intent(activity, GestionFichasAdminActivity.class));
+                        activity.finish();
+                    }
+                } else if (rolIdActual == 2) {
+                    if (!(activity instanceof GestionFichasActivity)) {
+                        activity.startActivity(new Intent(activity, GestionFichasActivity.class));
                         activity.finish();
                     }
                 }
