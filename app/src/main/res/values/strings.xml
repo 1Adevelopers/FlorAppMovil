@@ -20,4 +20,7 @@
     <!-- MAS DATOS -->
     <!-- SPLASH -->
     <string name="splash_tagline">Cuidando tus plantas, un toque a la vez</string>
+
+    <string name="explicacion_imagenes"><i>Colocá un link que termine con uno de los siguientes formatos: </i><b>.jpg, .webp, .png</b></string>
+
 </resources>
