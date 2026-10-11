@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="32dp">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/tvGestionFichas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agregar ficha"
+            style="@style/TituloPrincipal"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Nombre común -->
+        <TextView
+            android:id="@+id/tvNombreComun"
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold"
+            android:text="Nombre común:" />
+
+        <EditText
+            android:id="@+id/etNombreComun"
+            style="@style/TextoInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Peperina..."
+            android:textColorHint="@color/gris"
+            android:inputType="textPersonName"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:background="@drawable/input_fondo"
+            android:textColor="@color/texto_principal"
+            android:layout_marginBottom="5dp" />
+
+        <!-- Nombre Científico -->
+        <TextView
+            android:id="@+id/tvNombreCientifico"
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold"
+            android:text="Nombre científico:" />
+
+        <EditText
+            android:id="@+id/etNombreCientifico"
+            style="@style/TextoInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Mintho..."
+            android:textColorHint="@color/gris"
+            android:inputType="textPersonName"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:background="@drawable/input_fondo"
+            android:textColor="@color/texto_principal"
+            android:layout_marginBottom="5dp" />
+
+        <!-- Categoría -->
+        <TextView
+            android:id="@+id/tvCategoria"
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold"
+            android:text="Categoría:" />
+
+        <Spinner
+            android:id="@+id/spinnerCategorias"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/input_fondo"
+            android:layout_marginBottom="5dp"/>
+
+        <!-- Descripción -->
+        <TextView
+            android:id="@+id/tvNombreDescripcion"
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold"
+            android:text="Descripción:" />
+
+        <EditText
+            android:id="@+id/etDescripcion"
+            style="@style/TextoInput"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:hint="Escribí tu mensaje..."
+            android:textColorHint="@color/gris"
+            android:inputType="textMultiLine"
+            android:gravity="top|start"
+            android:padding="16dp"
+            android:background="@drawable/input_fondo"
+            android:layout_marginBottom="10dp" />
+
+        <!-- Imágenes -->
+        <TextView
+            android:id="@+id/tvImagenes"
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:text="Imágenes:" />
+
+        <TextView
+            android:id="@+id/tvImagenesExp"
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textSize="12sp"
+            android:text="@string/explicacion_imagenes" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginBottom="8dp">
+
+            <!-- Input Imagenes -->
+            <EditText
+                android:id="@+id/etImagenes"
+                style="@style/TextoInput"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="48dp"
+                android:layout_marginRight="8dp"
+                android:background="@drawable/input_fondo"
+                android:hint="https://ejemplo.com/foto.jpg"
+                android:inputType="textUri"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:textColor="@color/texto_principal"
+                android:textColorHint="@color/gris" />
+
+            <!-- Boton de confirmación (Check) -->
+            <Button
+                android:id="@+id/btnConfirmacion"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:backgroundTint="@color/verde2"
+                style="@style/BotonEstilo"
+                app:icon="@drawable/check_icon"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="@color/white"/>
+        </LinearLayout>
+
+        <!-- Contenedor dinámico donde se agregarán las tarjetitas de imágenes con su botón Eliminar -->
+        <LinearLayout
+            android:id="@+id/contenedorImagenesDinamicas"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Botones Guardar / Actualizar y Cancelar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnGuardar"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:text="Guardar"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/verde2"
+                android:layout_marginEnd="5dp"
+                style="@style/BotonEstilo"/>
+
+            <Button
+                android:id="@+id/btnCancelar"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:text="Cancelar"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/verde2"
+                android:layout_marginStart="5dp"
+                style="@style/BotonEstilo"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>

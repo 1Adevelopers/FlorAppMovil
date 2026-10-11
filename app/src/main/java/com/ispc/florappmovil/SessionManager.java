@@ -19,6 +19,7 @@ public class SessionManager {
     private static final String CLAVE_TOKEN = "JWT_TOKEN";
     private static final String CLAVE_REFRESH = "JWT_REFRESH";
     private static final String CLAVE_USUARIO_ID = "USUARIO_ID";
+    private static final String CLAVE_ROL = "ROL_ID";
 
     private final SharedPreferences prefs;
 
@@ -43,11 +44,12 @@ public class SessionManager {
     }
 
     /** Guarda los datos de la sesión después de un login exitoso. */
-    public void guardarSesion(String token, String refresh, int usuarioId) {
+    public void guardarSesion(String token, String refresh, int usuarioId, int rolId) {
         prefs.edit()
                 .putString(CLAVE_TOKEN, token)
                 .putString(CLAVE_REFRESH, refresh)
                 .putInt(CLAVE_USUARIO_ID, usuarioId)
+                .putInt(CLAVE_ROL, rolId)
                 .apply();
     }
 
@@ -64,6 +66,8 @@ public class SessionManager {
         return prefs.getInt(CLAVE_USUARIO_ID, -1);
     }
 
+    public int obtenerRolId() { return prefs.getInt(CLAVE_ROL, 0); }
+
     /** true si hay un usuario logueado (los invitados no tienen token). */
     public boolean haySesion() {
         return obtenerToken() != null && obtenerUsuarioId() != -1;
@@ -78,6 +82,7 @@ public class SessionManager {
                 .remove(CLAVE_TOKEN)
                 .remove(CLAVE_REFRESH)
                 .remove(CLAVE_USUARIO_ID)
+                .remove(CLAVE_ROL)
                 .commit();
     }
 }
