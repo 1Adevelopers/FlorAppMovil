@@ -43,6 +43,7 @@ public class GestionFichasActivity extends AppCompatActivity {
             intent.putExtra("MODO", "CREAR");
             startActivity(intent);
         });
+        NavbarManager.setupNavbar(this, "gestion");
     }
     @Override
     protected void onResume() {

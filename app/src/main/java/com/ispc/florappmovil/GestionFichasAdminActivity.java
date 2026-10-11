@@ -41,8 +41,9 @@ public class GestionFichasAdminActivity extends AppCompatActivity {
         btnUsuarios = findViewById(R.id.btnUsuarios);
         btnFichas = findViewById(R.id.btnFichas);
         btnUsuarios.setOnClickListener(v -> {
-            // TODO: Redirigir a GestionUsuariosActivity cuando esté implementada
-            Toast.makeText(this, "Sección de Gestión de Usuarios", Toast.LENGTH_SHORT).show();
+            Intent intent = new Intent(GestionFichasAdminActivity.this, GestionUsuariosAdminActivity.class);
+            startActivity(intent);
+            finish();
         });
         btnAnadir.setOnClickListener(v -> {
             Intent intent = new Intent(GestionFichasAdminActivity.this, ABMFichasActivity.class);

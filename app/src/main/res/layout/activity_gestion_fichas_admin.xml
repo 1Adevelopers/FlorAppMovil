@@ -19,7 +19,7 @@
             android:id="@+id/tvGestionFichas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Gestión de fichas"
+            android:text="Panel de Gestión"
             style="@style/TituloPrincipal"
             android:layout_marginBottom="20dp" />
 
@@ -104,4 +104,9 @@
 
         </ScrollView>
     </LinearLayout>
+    <include
+        layout="@layout/navbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
 </RelativeLayout>
