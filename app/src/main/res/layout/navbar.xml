@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="70dp"
+    android:orientation="vertical"
+    android:background="#FFFFFF"
+    android:elevation="8dp">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1.5dp"
+        android:background="@color/gris" />
+
+    <!-- Contenedor botones -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:weightSum="4">
+
+        <!-- Botón 1: Fichas -->
+        <LinearLayout
+            android:id="@+id/btnNavFichas"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/imgFichas"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icono_ficha"
+                android:tint="@color/black"
+                tools:ignore="UseAppTint" />
+            <TextView
+                android:id="@+id/txtFichas"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fichas"
+                android:textSize="12sp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <!-- Botón 2: Contacto -->
+        <LinearLayout
+            android:id="@+id/btnNavContacto"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/imgContacto"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icono_contacto"
+                android:tint="@color/black"
+                tools:ignore="UseAppTint" />
+            <TextView
+                android:id="@+id/txtContacto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Contacto"
+                android:textSize="12sp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <!-- Botón 3: Login / Mi Perfil (cambia según el rol) -->
+        <LinearLayout
+            android:id="@+id/btnNavIngreso"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:orientation="vertical"
+            android:gravity="center">
+            <ImageView
+                android:id="@+id/imgPerfilLogin"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icono_usuario"
+                android:tint="@color/black"
+                tools:ignore="UseAppTint" />
+            <TextView
+                android:id="@+id/txtIngreso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Ingreso"
+                android:textSize="12sp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+        <!-- Botón 4: Gestión (oculto p/ invitados) -->
+        <LinearLayout
+            android:id="@+id/layoutBtnGestion"
+            android:layout_width="0dp"
+            android:layout_height="55dp"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical"
+            android:layout_marginStart="6dp"
+            android:layout_marginEnd="6dp"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:visibility="gone">
+            <ImageView
+                android:id="@+id/imgGestion"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/icono_gestion"
+                android:tint="@color/black"
+                tools:ignore="UseAppTint" />
+            <TextView
+                android:id="@+id/txtGestion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Gestión"
+                android:textSize="12sp"
+                android:fontFamily="@font/poppins_semi_bold"
+                android:textColor="@color/black"/>
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

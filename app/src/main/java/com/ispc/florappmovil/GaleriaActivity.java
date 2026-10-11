@@ -34,8 +34,6 @@ public class GaleriaActivity extends AppCompatActivity {
     private static final String URL_ESPECIES = RetrofitClient.getBaseUrl() + "api/flora/especies/";
     private static final String URL_CATEGORIAS = RetrofitClient.getBaseUrl() + "api/flora/categorias/";
 
-    private Button btnContacto;
-    private Button btnPerfil;
     private LinearLayout contenedorEspecies;
     private Spinner spinnerCategorias;
     private List<String> listaCategorias = new ArrayList<>();
@@ -45,35 +43,12 @@ public class GaleriaActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_galeria);
-        btnContacto = findViewById(R.id.btnContacto);
-        btnPerfil = findViewById(R.id.btnPerfil);
+        //   btnContacto = findViewById(R.id.btnContacto);
+        //   btnPerfil = findViewById(R.id.btnPerfil);
 
         spinnerCategorias = findViewById(R.id.spinnerCategorias);
         contenedorEspecies = findViewById(R.id.contenedorEspecies);
 
-
-        btnContacto.setOnClickListener(v -> {
-            Intent intent = new Intent(GaleriaActivity.this, ContactoActivity.class);
-            startActivity(intent);
-        });
-
-        if (new SessionManager(this).haySesion()) {
-            // Usuario logueado: el botón abre su perfil
-            btnPerfil.setOnClickListener(v -> {
-                Intent intent = new Intent(GaleriaActivity.this, ProfileActivity.class);
-                startActivity(intent);
-            });
-        } else {
-            // Invitado: el mismo botón invita a iniciar sesión (desde ahí puede registrarse)
-            btnPerfil.setText("Iniciar sesión");
-            btnPerfil.setOnClickListener(v -> {
-                Intent intent = new Intent(GaleriaActivity.this, LoginActivity.class);
-                startActivity(intent);
-            });
-        }
-
-        listaCategorias.add("Todas las categorías");
-        listaCategorias.add("Todas las categorías");
         spinnerCategorias.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -81,17 +56,16 @@ public class GaleriaActivity extends AppCompatActivity {
                 filtrarYMostrarEspecies(categoriaSeleccionada);
             }
 
-
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
-
         obtenerCategoriasBackend();
         obtenerEspeciesBackend();
-    }
 
+        NavbarManager.setupNavbar(this, "fichas");
+    }
 
     private void obtenerCategoriasBackend() {
         new Thread(() -> {
