@@ -52,6 +52,10 @@
         <activity
             android:name=".GestionFichasActivity"
             android:exported="false" />
+
+        <activity
+            android:name=".GestionFichasAdminActivity"
+            android:exported="false" />
     </application>
 
 </manifest>
