@@ -19,6 +19,7 @@
         android:layout_height="match_parent"
         android:orientation="horizontal"
         android:gravity="center"
+        android:layout_margin="6dp"
         android:weightSum="4">
 
         <!-- Botón 1: Fichas -->
