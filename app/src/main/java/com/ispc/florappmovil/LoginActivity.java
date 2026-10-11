@@ -96,7 +96,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     // Guardamos token, refresh e id del usuario de forma cifrada (Requerimiento Ciberseguridad)
                     new SessionManager(LoginActivity.this).guardarSesion(
-                            datos.getAccess(), datos.getRefresh(), datos.getUser().getId());
+                            datos.getAccess(), datos.getRefresh(), datos.getUser().getId(), datos.getUser().getRol());
 
                     Toast.makeText(LoginActivity.this, "¡Bienvenido a FlorApp!", Toast.LENGTH_SHORT).show();
 

@@ -65,9 +65,9 @@ public class LoginTest {
         driver.findElement(id("btnLogin")).click();
 
         // Pasos 6-7: se abre la Galería con la sesión activa (botón "Perfil")
-        WebElement btnPerfil = espera.until(
-                ExpectedConditions.visibilityOfElementLocated(id("btnPerfil")));
-        assertEquals("Perfil", btnPerfil.getText());
+        WebElement txtIngreso = espera.until(
+                ExpectedConditions.visibilityOfElementLocated(id("txtIngreso")));
+        assertEquals("Mi Perfil", txtIngreso.getText());
         assertTrue(driver.currentActivity().endsWith("GaleriaActivity"));
 
         // Paso 8: LoginActivity fue cerrada (con "Atrás" no se vuelve a ella)

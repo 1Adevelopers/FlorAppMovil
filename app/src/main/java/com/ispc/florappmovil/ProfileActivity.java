@@ -45,19 +45,18 @@ public class ProfileActivity extends AppCompatActivity {
 
         api = RetrofitClient.getClient().create(FlorAppApi.class);
 
-        TextView tvVolver = findViewById(R.id.tvVolverGaleria);
         Button btnCerrar = findViewById(R.id.btnCerrar);
         btnModificar = findViewById(R.id.btnModificar);
         etNombre = findViewById(R.id.etNombre);
         etApellido = findViewById(R.id.etApellido);
         etEmail = findViewById(R.id.etEmail);
 
-        tvVolver.setOnClickListener(v -> finish());
         btnModificar.setOnClickListener(v -> actualizarPerfil());
-
         btnCerrar.setOnClickListener(v -> cerrarSesion());
 
         cargarPerfil();
+
+        NavbarManager.setupNavbar(this, "perfil");
     }
 
     // GET /api/usuarios/{id}/ : trae los datos del usuario logueado

@@ -5,7 +5,10 @@ import com.ispc.florappmovil.api.FlorAppApi;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
@@ -52,7 +55,7 @@ public class RegisterActivity extends AppCompatActivity {
         cbTerminos.setOnCheckedChangeListener((buttonView, isChecked) ->
                 actualizarBotonRegistrar(isChecked));
 
-        tvTerminos.setOnClickListener(v -> mostrarTerminos());
+        tvTerminos.setOnClickListener(v -> mostrarModalTerminos());
         btnArrepentimiento.setOnClickListener(v -> confirmarArrepentimiento());
         btnRegistrar.setOnClickListener(v -> intentarRegistro());
 
@@ -150,19 +153,32 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void mostrarTerminos() {
-        new AlertDialog.Builder(this)
-                .setTitle("Términos y Condiciones")
-                .setMessage("Al registrarte aceptás que FlorApp trate tus datos personales "
-                        + "(nombre, apellido y email) únicamente para gestionar tu cuenta. "
-                        + "Podés solicitar la modificación o eliminación de tus datos en "
-                        + "cualquier momento.")
-                .setPositiveButton("Entendido", null)
-                .show();
+    private void mostrarModalTerminos() {
+        Dialog dialog = new Dialog(RegisterActivity.this);
+        dialog.setContentView(R.layout.modal_terminos);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        Button btnModalAceptar = dialog.findViewById(R.id.btnModalAceptar);
+        Button btnModalCancelar = dialog.findViewById(R.id.btnModalCancelar);
+
+        btnModalAceptar.setOnClickListener(v -> {
+            cbTerminos.setChecked(true);
+            dialog.dismiss();
+        });
+
+        btnModalCancelar.setOnClickListener(v -> {
+            cbTerminos.setChecked(false);
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
 
     private void confirmarArrepentimiento() {
-        new AlertDialog.Builder(this)
+        new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("Cancelar registro")
                 .setMessage("Se borrarán los datos ingresados y no se creará ninguna cuenta. ¿Querés continuar?")
                 .setPositiveButton("Sí, cancelar", (dialog, which) -> {
@@ -172,6 +188,7 @@ public class RegisterActivity extends AppCompatActivity {
                     etPassword.setText("");
                     etConfirmarPassword.setText("");
                     cbTerminos.setChecked(false);
+                    actualizarBotonRegistrar(false);
                     Toast.makeText(this, "Registro cancelado", Toast.LENGTH_SHORT).show();
                     finish();
                 })
