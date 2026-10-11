@@ -17,10 +17,8 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="CREAR CUENTA"
-            android:textColor="@color/verde1"
-            android:textSize="18sp"
-            android:textStyle="bold"
+            android:text="Crear cuenta"
+            style="@style/TituloPrincipal"
             android:layout_marginBottom="32dp" />
 
         <EditText
@@ -117,7 +115,7 @@
             android:id="@+id/btnRegistrar"
             android:layout_width="match_parent"
             android:layout_height="50dp"
-            android:text="REGISTRARME"
+            android:text="Registrarme"
             android:textColor="@color/white"
             android:textSize="16sp"
             android:textStyle="bold"
