@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp"
+        >
+
+        <!-- Titulo -->
+        <TextView
+            android:id="@+id/tvGestionFichas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gestión de fichas"
+            style="@style/TituloPrincipal"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Botones de gestión -->
+        <LinearLayout
+            android:id="@+id/contenedorBotonesGestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:padding="8dp">
+
+            <Button
+                android:id="@+id/btnUsuarios"
+                style="@style/BotonEstilo"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:text="Usuarios"
+                app:icon="@drawable/icono_usuario"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="@color/white"/>
+
+            <!-- Boton Borrar -->
+            <Button
+                android:id="@+id/btnFichas"
+                style="@style/BotonEstilo"
+                android:backgroundTint="@color/verde1"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="4dp"
+                android:text="Fichas"
+                app:icon="@drawable/icono_ficha"
+                app:iconGravity="textStart"
+                app:iconPadding="0dp"
+                app:iconTint="@color/white"/>
+
+        </LinearLayout>
+
+        <!-- Subtitulo -->
+        <TextView
+            android:id="@+id/tvDescripcionContacto"
+            style="@style/TextoPrincipal"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:text="Plantas Nativas" />
+
+        <!-- Catálogo -->
+        <TextView
+            android:id="@+id/tvCatalogo"
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="10sp"
+            android:textColor="@color/gris"
+            android:text="Catálogo de especies de la provincia de Córdoba" />
+
+        <Button
+            android:id="@+id/btnAñadir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/BotonEstilo"
+            android:text="Añadir nueva ficha"/>
+
+        <!-- Fichas -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Contenedor de las fichas -->
+            <LinearLayout
+                android:id="@+id/contenedorEspecies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </ScrollView>
+    </LinearLayout>
+</RelativeLayout>
