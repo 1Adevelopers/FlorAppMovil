@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="24dp"
     android:background="@color/fondo">
 
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_marginRight="65dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/navbarInclude"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp"
         >
 
-        <!-- Botón Contacto -->
+        <!-- Botón Contacto
         <Button
             android:id="@+id/btnContacto"
             android:layout_width="wrap_content"
@@ -26,9 +26,9 @@
             android:textSize="8sp"
             android:textColor="@color/white"
             android:backgroundTint="@color/verde1"
-            android:layout_marginEnd="5dp" />
+            android:layout_marginEnd="5dp" />  -->
 
-        <!-- Botón Perfil -->
+        <!-- Botón Perfil
         <Button
             android:id="@+id/btnPerfil"
             android:layout_width="wrap_content"
@@ -38,29 +38,28 @@
             android:textSize="8sp"
             android:textColor="@color/white"
             android:backgroundTint="@color/verde1"
-            android:layout_marginEnd="5dp" />
-    </LinearLayout>
+            android:layout_marginEnd="5dp" /> -->
 
-    <!-- Titulo -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Fichas de plantas"
-        android:textColor="@color/verde1"
-        android:textSize="20sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="5dp"/>
+        <!-- Titulo -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Fichas de plantas"
+            android:textColor="@color/verde1"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="5dp"/>
 
-    <!-- Filtros -->
+        <!-- Filtros -->
         <Spinner
-        android:id="@+id/spinnerCategorias"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:background="@drawable/input_fondo"
-        android:layout_marginBottom="16dp"/>
+            android:id="@+id/spinnerCategorias"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/input_fondo"
+            android:layout_marginBottom="16dp"/>
 
 
-    <!-- Fichas -->
+        <!-- Fichas -->
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent">
@@ -74,3 +73,12 @@
 
         </ScrollView>
     </LinearLayout>
+
+
+    <include
+        android:id="@+id/navbarInclude"
+        layout="@layout/navbar"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

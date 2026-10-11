@@ -1,93 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="32dp"
-    android:background="@color/white">
-
-    <!-- Boton regresar a galeria -->
-    <Button
-        android:id="@+id/btnGaleria"
-        android:layout_width="wrap_content"
-        android:layout_height="42dp"
-        android:layout_gravity="start"
-        android:layout_marginBottom="40dp"
-        android:background="@android:color/transparent"
-        android:textColor="@color/verde1"
-        android:text="Regresar a Galería"
-        android:textSize="12sp" />
-
-
-    <TextView
-        android:id="@+id/tvTituloContacto"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Contacto"
-        style="@style/TituloPrincipal"
-        android:layout_marginBottom="20dp" />
-
-    <TextView
-        android:id="@+id/tvDescripcionContacto"
-        style="@style/TextoPrincipal"
+    android:background="@color/fondo">
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginBottom="24dp"
-        android:text="¿Encontraste una planta?\n¿Tenés una pregunta?\nEscribinos y pronto te responderemos!" />
+        android:layout_height="match_parent"
+        android:layout_above="@id/navbarInclude"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="32dp">
 
-    <!-- campo nombre -->
-    <EditText
-        android:id="@+id/etNombre"
-        style="@style/TextoPrincipal"
+        <TextView
+            android:id="@+id/tvTituloContacto"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Contacto"
+            style="@style/TituloPrincipal"
+            android:layout_marginBottom="20dp" />
+
+        <TextView
+            android:id="@+id/tvDescripcionContacto"
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="24dp"
+            android:text="¿Encontraste una planta?\n¿Tenés una pregunta?\nEscribinos y pronto te responderemos!" />
+
+        <!-- campo nombre -->
+        <EditText
+            android:id="@+id/etNombre"
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Nombre completo"
+            android:textColorHint="@color/gris"
+            android:inputType="textPersonName"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:background="@drawable/input_fondo"
+            android:textColor="@color/texto_principal"
+            android:layout_marginBottom="16dp" />
+
+        <!-- campo email -->
+        <EditText
+            android:id="@+id/etEmail"
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Correo electrónico"
+            android:textColorHint="@color/gris"
+            android:inputType="textEmailAddress"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:background="@drawable/input_fondo"
+            android:layout_marginBottom="16dp" />
+
+        <!-- campo msj -->
+        <EditText
+            android:id="@+id/etMensaje"
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:hint="Dejanos tu consulta"
+            android:textColorHint="@color/gris"
+            android:inputType="textMultiLine"
+            android:gravity="top|start"
+            android:padding="16dp"
+            android:background="@drawable/input_fondo"
+            android:layout_marginBottom="24dp" />
+
+        <!-- btn -->
+        <Button
+            android:id="@+id/btnEnviarContacto"
+            style="@style/BotonEstilo"
+            android:layout_height="50dp"
+            android:text="Enviar"
+            android:layout_marginBottom="30dp"/>
+
+    </LinearLayout>
+
+    <include
+        android:id="@+id/navbarInclude"
+        layout="@layout/navbar"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Nombre completo"
-        android:textColorHint="@color/gris"
-        android:inputType="textPersonName"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:background="@drawable/input_fondo"
-        android:textColor="@color/texto_principal"
-        android:layout_marginBottom="16dp" />
-
-    <!-- campo email -->
-    <EditText
-        android:id="@+id/etEmail"
-        style="@style/TextoPrincipal"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        android:hint="Correo electrónico"
-        android:textColorHint="@color/gris"
-        android:inputType="textEmailAddress"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
-        android:background="@drawable/input_fondo"
-        android:layout_marginBottom="16dp" />
-
-    <!-- campo msj -->
-    <EditText
-        android:id="@+id/etMensaje"
-        style="@style/TextoPrincipal"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:hint="Dejanos tu consulta"
-        android:textColorHint="@color/gris"
-        android:inputType="textMultiLine"
-        android:gravity="top|start"
-        android:padding="16dp"
-        android:background="@drawable/input_fondo"
-        android:layout_marginBottom="24dp" />
-
-    <!-- btn -->
-    <Button
-        android:id="@+id/btnEnviarContacto"
-        style="@style/BotonEstilo"
-        android:layout_height="50dp"
-        android:text="Enviar"
-        android:layout_marginBottom="30dp"/>
-
-</LinearLayout>
+        android:layout_height="70dp"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>
