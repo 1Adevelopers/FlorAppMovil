@@ -1,65 +1,71 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:gravity="center"
-    android:padding="32dp"
+    android:fillViewport="true"
+    android:scrollbars="vertical"
     android:background="@color/fondo">
-
-    <!-- titulo -->
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Te damos la bienvenida a"
-        style="@style/TituloPrincipal"
-        android:layout_marginBottom="20dp" />
-
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="130dp"
-        android:src="@drawable/florapplogo"
-        android:adjustViewBounds="true"
-        android:layout_marginBottom="36dp"
-        android:contentDescription="Logo FlorApp" />
-
-    <TextView
-        android:id="@+id/tvDescripcionContacto"
-        style="@style/TextoPrincipal"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="24dp"
-        android:text="Elije una opción para ingresar a la plataforma" />
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="32dp">
+
+        <!-- titulo -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Te damos la bienvenida a"
+            style="@style/TituloPrincipal"
+            android:layout_marginBottom="20dp" />
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="130dp"
+            android:src="@drawable/florapplogo"
+            android:adjustViewBounds="true"
+            android:layout_marginBottom="36dp"
+            android:contentDescription="Logo FlorApp" />
+
+        <TextView
+            android:id="@+id/tvDescripcionContacto"
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            android:text="Elije una opción para ingresar a la plataforma" />
 
 
-    <!-- BTN iniciar sesion -->
-    <Button
-        android:id="@+id/btnLogin"
-        style="@style/BotonEstilo"
-        android:layout_width="match_parent"
-        android:text="Iniciar sesión"
-    />
-
-    <!-- BTN registrarse -->
-
-    <Button
-        android:id="@+id/btnRegistrarse"
-        style="@style/BotonEstilo"
-        android:layout_width="match_parent"
-        android:text="Registrarse"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
+        <!-- BTN iniciar sesion -->
+        <Button
+            android:id="@+id/btnLogin"
+            style="@style/BotonEstilo"
+            android:layout_width="match_parent"
+            android:text="Iniciar sesión"
         />
 
-    <!-- BTN invitado -->
-    <Button
-        android:id="@+id/btnInvitado"
-        android:layout_width="match_parent"
-        style="@style/BotonEstilo"
-        android:text="Ingresar como invitado"
-    />
+        <!-- BTN registrarse -->
+
+        <Button
+            android:id="@+id/btnRegistrarse"
+            style="@style/BotonEstilo"
+            android:layout_width="match_parent"
+            android:text="Registrarse"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <!-- BTN invitado -->
+        <Button
+            android:id="@+id/btnInvitado"
+            android:layout_width="match_parent"
+            style="@style/BotonEstilo"
+            android:text="Ingresar como invitado"
+        />
 
 
-</LinearLayout>
+    </LinearLayout>
+</ScrollView>
