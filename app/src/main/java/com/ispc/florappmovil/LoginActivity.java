@@ -51,6 +51,7 @@ public class LoginActivity extends AppCompatActivity {
             new SessionManager(LoginActivity.this).cerrarSesion(); // invitado: sin sesión
             Intent intent = new Intent(LoginActivity.this, GaleriaActivity.class);
             startActivity(intent);
+            finish();
         });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -102,6 +103,7 @@ public class LoginActivity extends AppCompatActivity {
 
                     // 3. Intent a GaleriaActivity
                     Intent intent = new Intent(LoginActivity.this, GaleriaActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
 
