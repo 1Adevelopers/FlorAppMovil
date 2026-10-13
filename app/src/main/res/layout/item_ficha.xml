@@ -31,12 +31,11 @@
         android:paddingEnd="12dp"
         android:paddingTop="6dp"
         android:paddingBottom="6dp"
-        android:textColor="@android:color/white"
+        android:textColor="@color/texto_principal"
         android:background="#BFBFBF"
         android:textSize="12sp"
         android:textStyle="bold"
         />
-    />
 
 
     <!-- Nombre común -->
