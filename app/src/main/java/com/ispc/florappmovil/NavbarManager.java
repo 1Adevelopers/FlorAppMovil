@@ -83,11 +83,12 @@ public class NavbarManager {
         }
 
         // 5. Configurar los eventos de clic para navegar entre pantallas
+        //    La Galería queda siempre abajo en el historial: desde cualquier sección,
+        //    "Atrás" vuelve a la Galería
         if (btnFichas != null) {
             btnFichas.setOnClickListener(v -> {
                 if (!(activity instanceof GaleriaActivity)) {
-                    activity.startActivity(new Intent(activity, GaleriaActivity.class));
-                    activity.finish();
+                    irA(activity, GaleriaActivity.class);
                 }
             });
         }
@@ -95,8 +96,7 @@ public class NavbarManager {
         if (btnContacto != null) {
             btnContacto.setOnClickListener(v -> {
                 if (!(activity instanceof ContactoActivity)) {
-                    activity.startActivity(new Intent(activity, ContactoActivity.class));
-                    activity.finish();
+                    irA(activity, ContactoActivity.class);
                 }
             });
         }
@@ -105,12 +105,14 @@ public class NavbarManager {
             btnNavIngreso.setOnClickListener(v -> {
                 if (esAdminDocente) {
                     if (!(activity instanceof ProfileActivity)) {
-                        activity.startActivity(new Intent(activity, ProfileActivity.class));
-                        activity.finish();
+                        irA(activity, ProfileActivity.class);
                     }
                 } else {
                     if (!(activity instanceof IngresoActivity)) {
-                        activity.startActivity(new Intent(activity, IngresoActivity.class));
+                        // Invitado que va a Ingreso: se borra el historial
+                        Intent intent = new Intent(activity, IngresoActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        activity.startActivity(intent);
                         activity.finish();
                     }
                 }
@@ -122,16 +124,29 @@ public class NavbarManager {
 
                 if (rolIdActual == 1) {
                     if (!(activity instanceof GestionFichasAdminActivity) && !(activity instanceof GestionUsuariosAdminActivity)) {
-                        activity.startActivity(new Intent(activity, GestionFichasAdminActivity.class));
-                        activity.finish();
+                        irA(activity, GestionFichasAdminActivity.class);
                     }
                 } else if (rolIdActual == 2) {
                     if (!(activity instanceof GestionFichasActivity)) {
-                        activity.startActivity(new Intent(activity, GestionFichasActivity.class));
-                        activity.finish();
+                        irA(activity, GestionFichasActivity.class);
                     }
                 }
             });
+        }
+    }
+
+    // Abre una sección dejando la Galería abajo en el historial:
+    //  - si se va a la Galería, se reutiliza la que ya está abierta (no se duplica)
+    //  - si se sale desde la Galería, no se la cierra (así "Atrás" vuelve a ella)
+    //  - si se pasa de una sección a otra, se cierra la actual
+    private static void irA(Activity activity, Class<?> destino) {
+        Intent intent = new Intent(activity, destino);
+        if (destino == GaleriaActivity.class) {
+            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
+        }
+        activity.startActivity(intent);
+        if (!(activity instanceof GaleriaActivity)) {
+            activity.finish();
         }
     }
 
