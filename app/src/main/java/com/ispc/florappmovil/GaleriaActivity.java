@@ -1,5 +1,12 @@
 package com.ispc.florappmovil;
 
+import androidx.activity.OnBackPressedCallback;
+import android.view.ViewGroup;
+import android.app.Dialog;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
+import android.widget.Button;
+import android.content.Intent;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -48,7 +55,58 @@ public class GaleriaActivity extends AppCompatActivity {
         obtenerEspeciesBackend();
 
         NavbarManager.setupNavbar(this, "fichas");
+
+
+        // Al precionar Atrás en la Galería: preguntar antes de salir
+        getOnBackPressedDispatcher().addCallback(this, new OnBackPressedCallback(true) {
+            @Override
+            public void handleOnBackPressed() {
+                confirmarSalida();
+            }
+        });
     }
+
+
+    // Modal al tocar Atrás: Aceptar vuelve a Ingreso; Cancelar se queda en la Galería
+    private void confirmarSalida() {
+        SessionManager sesion = new SessionManager(this);
+        boolean haySesion = sesion.haySesion();
+
+        Dialog dialog = new Dialog(this);
+        dialog.setContentView(R.layout.modal_salir);
+        dialog.setCancelable(false);
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        TextView tvTitulo = dialog.findViewById(R.id.tvModalSalirTitulo);
+        Button btnAceptar = dialog.findViewById(R.id.btnModalSalirAceptar);
+        Button btnCancelar = dialog.findViewById(R.id.btnModalSalirCancelar);
+
+        tvTitulo.setText(haySesion ? "¿Deseás cerrar sesión?" : "¿Deseás salir?");
+
+        btnAceptar.setOnClickListener(v -> {
+            dialog.dismiss();
+            if (haySesion) {
+                sesion.cerrarSesion();
+                Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
+            }
+            Intent intent = new Intent(this, IngresoActivity.class);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(intent);
+            finish();
+        });
+
+        btnCancelar.setOnClickListener(v -> dialog.dismiss());
+
+        dialog.show();
+        // Mismo ancho siempre (80% de la pantalla), sin importar el largo del texto
+        if (dialog.getWindow() != null) {
+            int ancho = (int) (getResources().getDisplayMetrics().widthPixels * 0.80);
+            dialog.getWindow().setLayout(ancho, ViewGroup.LayoutParams.WRAP_CONTENT);
+        }
+    }
+
     private void obtenerCategoriasBackend() {
         new Thread(() -> {
             try {
