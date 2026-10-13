@@ -76,6 +76,8 @@
             style="@style/TextoCursiva"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:minHeight="48dp"
+            android:gravity="center"
             android:text="¿No tenés cuenta? Registrate"
             android:padding="8dp"
             android:clickable="true"
