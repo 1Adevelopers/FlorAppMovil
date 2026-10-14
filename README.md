@@ -10,7 +10,8 @@
 
 Mientras la Plataforma Web administra integralmente los contenidos y el catálogo (ABM de especies), la **Aplicación Móvil** se enfoca en brindar una **experiencia ágil e interactiva en dispositivos Android**, con soporte para:
 * **Modo Invitado:** Acceso directo para niños y estudiantes para explorar el catálogo y fichas informativas sin requerir registro.
-* **Modo Docente / Administrador:** Inicio de sesión seguro mediante tokens JWT para gestionar perfil y usuarios.
+* **Modo Docente:** Inicio de sesión seguro mediante tokens JWT para la gestión exclusiva, creación, modificación y eliminación de fichas propias.
+- **Modo Administrador:** Control absoluto del sistema mediante paneles de gestión global de fichas de todo el sistema y gestión completa de usuarios y roles.
 
 ---
 
@@ -21,17 +22,22 @@ El proyecto sigue un esquema desacoplado Cliente-Servidor:
 * **Cliente Móvil (Frontend):** Android Nativo desarrollado en **Java 17 (JDK 17)** sobre **Android Studio**.
 * **Servidor (Backend):** API REST desarrollada en **Django REST Framework** con base de datos **MySQL** y autenticación **JWT** (JSON Web Tokens).
 * **Protocolo de Comunicación:** HTTP/HTTPS mediante consumo de endpoints JSON.
-* **Diseño UI/UX:** XML con paleta cromática personalizada (`verde1`, `verde2`, `fondo`, `verde_pastel`).
+* **Diseño UI/UX:** XML con paleta cromática personalizada (fonts, botones y estilos globales).
 
 ---
 
 ##  Flujo de Navegación y Pantallas Principales
 
-1. **Bienvenida / Ingreso (`SplashActivity` / `IngresoActivity`):** Verificación automática de sesión guardada localmente u opciones de acceso libre.
-2. **Galería (`GaleriaActivity`):** Catálogo interactivo consumido desde la API REST.
-3. **Perfil (`ProfileActivity`):** Edición de información personal y cierre de sesión seguro.
-4. **Contacto (`ContactoActivity`):** Formulario directo de consultas generales.
-5. **Autenticación (`LoginActivity` / `RegisterActivity`):** Formularios de ingreso y registro docente con validaciones en el cliente.
+1. **Bienvenida / Ingreso:** Verificación automática de sesión guardada localmente u opciones de acceso libre.
+2. **Galería:** Catálogo interactivo con filtros dinámicos mediante un `Spinner` de categorías. Cada ficha muestra imagen, categoría, nombre común y científico; al hacer toque sobre la ficha, la interfaz oculta la imagen temporalmente para desplegar la **descripción detallada**.
+3. **Perfil:** Consulta y modificación de datos personales (`nombre`, `apellido`, `email`) y cierre de sesión seguro.
+4. **Contacto:** Formulario directo de consultas generales accesible tanto para usuarios registrados como para invitados.
+5. **Autenticación:** Formularios de ingreso y registro docente con validaciones en el cliente.
+6. **Panel de Gestión de Docentes:** Visualización exclusiva de las especies creadas por el docente logueado, permitiendo añadir nuevas fichas o actualizar/eliminar las fichas propias. 
+7. **Panel de Gestión de Administradores:** Gestión global de todas las fichas del sistema e interfaz dedicada a la administración de usuarios (creación de cuentas especificando rol, actualización de datos o bajas).
+8. **Barra de Navegación:** Con rol diferido:
+    - *Invitado:* Fichas, Contacto e Ingreso.
+    - *Docente / Administrador:* Fichas, Contacto, Mi Perfil y Gestión.
 
 ---
 
@@ -65,12 +71,12 @@ El desarrollo del repositorio se organiza estrictamente mediante **GitFlow**:
 * **Sistema Operativo Objetivo:** Android 8.0 (API Level 26 - Oreo) o superior.
 * **RAM Mínima:** 2 GB.
 
-
 ---
 
 ##  Configuración de la Conexión con el Backend
 
-La app consume la API REST de Django del repositorio [moduloweb](https://github.com/1Adevelopers/moduloweb). La IP del servidor **se configura en un único lugar**: el archivo `Gradle Scripts/local.properties`, que es propio de cada computadora.
+La app consume la API REST de Django del repositorio [moduloweb](https://github.com/1Adevelopers/moduloweb).
+La IP del servidor **se configura en un único lugar**: el archivo `Gradle Scripts/local.properties`, que es propio de cada computadora.
 
 ### 1. Levantar el backend Django
 
@@ -92,9 +98,9 @@ En una terminal de Windows ejecutar `ipconfig` y copiar la **Dirección IPv4** d
 
 ### 3. Configurar la IP en la app
 
-Abrir `local.properties` (en Android Studio: *Gradle Scripts → local.properties*) y agregar al final:
-
-    florapp.ip=TU_IP
+> Abrir `local.properties` (en Android Studio: *Gradle Scripts → local.properties*) y agregar al final:
+>
+>    florapp.ip=TU_IP
 
 Luego hacer **Sync Project** y **Run**. Si la línea no existe, la app usa `10.0.2.2`, que sirve para el emulador.
 
