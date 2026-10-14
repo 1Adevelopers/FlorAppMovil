@@ -78,25 +78,77 @@ El desarrollo del repositorio se organiza estrictamente mediante **GitFlow**:
 La app consume la API REST de Django del repositorio [moduloweb](https://github.com/1Adevelopers/moduloweb).
 La IP del servidor **se configura en un único lugar**: el archivo `Gradle Scripts/local.properties`, que es propio de cada computadora.
 
-### 1. Levantar el backend Django
+## Instalación y configuración
 
-Seguir el README de *moduloweb* para instalar dependencias, configurar el `.env` y cargar los fixtures (`categorias.json`, `usuarios.json` y `especies.json`, en ese orden).
+### 1. Clonar el repositorio
 
-En el `.env` del backend, agregar la IP de tu PC en `ALLOWED_HOSTS`:
+```bash
 
-    ALLOWED_HOSTS=127.0.0.1,localhost,TU_IP,10.0.2.2,0.0.0.0
+git clone https://github.com/1Adevelopers/moduloweb.git
 
-Iniciar el servidor **escuchando en todas las interfaces** (si se usa solo `runserver`, el celular no puede conectarse):
+cd moduloweb
 
-    python manage.py runserver 0.0.0.0:8000
+```
 
-### 2. Obtener la IP de tu PC
+---
+
+### 2. Backend (Django)
+
+```bash
+
+# Acceder al directorio del backend
+cd backend
+
+# Crear entorno virtual
+python -m venv env
+
+# Activar entorno virtual
+# En Windows:
+env\Scripts\activate
+# En Linux/macOS:
+source env/bin/activate
+
+# Instalar dependencias
+pip install -r requirements.txt
+
+#Importante:
+Crear el archivo .env en la carpeta backend (Click derecho en carpeta backend nuevo archivo `.env`, enter)
+Abrir el archivo .env_ejemplo copiar y pegarlo dentro del archivo `.env`, cambiando los parametros de ejemplo por los reales
+
+# Aplicar migraciones
+python manage.py migrate
+
+# Ejecutar el servidor
+python manage.py runserver 0.0.0.0:8000
+
+```
+
+> **Importante:** Antes de correr el backend de FlorApp, es necesario cargar estos fixtures:
+
+    cd 1ADevelopers/backend
+
+    - En la consola escribir:
+        python manage.py loaddata categorias.json
+        python manage.py loaddata usuarios.json
+        python manage.py loaddata especies.json
+
+**De esta manera ya contaremos con 2 usuarios creados con 5 fichas cargadas:**
+- email: admin@gmail.com
+- contraseña: 123456
+
+- email: profe@gmail.com
+- contraseña: 123456
+
+> **** En caso de querer cargar mas fichas, dejamos la biblioteca de especies [Biblioteca Digital](https://docs.google.com/document/d/1L7RHo08NYPlwv7Eu4EYWFAa6pMuoNQeuAel_XPOghBY/edit?tab=t.9k9bncmu1pot#heading=h.be42dv9srvcy)
+---
+
+### 3. Obtener la IP de tu PC
 
 En una terminal de Windows ejecutar `ipconfig` y copiar la **Dirección IPv4** del adaptador **Wi-Fi** (por ejemplo `192.168.0.74`).
 
 > ⚠️ No usar IPs de adaptadores virtuales como VirtualBox (`192.168.56.x`): el celular no puede alcanzarlas.
 
-### 3. Configurar la IP en la app
+### 4. Configurar la IP en la app
 
 > Abrir `local.properties` (en Android Studio: *Gradle Scripts → local.properties*) y agregar al final:
 >
