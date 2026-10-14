@@ -11,7 +11,7 @@
 Mientras la Plataforma Web administra integralmente los contenidos y el catálogo (ABM de especies), la **Aplicación Móvil** se enfoca en brindar una **experiencia ágil e interactiva en dispositivos Android**, con soporte para:
 * **Modo Invitado:** Acceso directo para niños y estudiantes para explorar el catálogo y fichas informativas sin requerir registro.
 * **Modo Docente:** Inicio de sesión seguro mediante tokens JWT para la gestión exclusiva, creación, modificación y eliminación de fichas propias.
-- **Modo Administrador:** Control absoluto del sistema mediante paneles de gestión global de fichas de todo el sistema y gestión completa de usuarios y roles.
+* **Modo Administrador:** Control absoluto del sistema mediante paneles de gestión global de fichas de todo el sistema y gestión completa de usuarios y roles.
 
 ---
 
