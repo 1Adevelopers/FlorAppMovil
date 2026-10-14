@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/fondo">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:gravity="center"
+        android:padding="24dp"
+        >
+
+        <!-- Titulo -->
+        <TextView
+            android:id="@+id/tvGestionFichas"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Gestión de fichas"
+            style="@style/TituloPrincipal"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Subtitulo -->
+        <TextView
+            android:id="@+id/tvDescripcionContacto"
+            style="@style/TextoPrincipal"
+            android:textStyle="bold"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:text="Plantas Nativas" />
+
+        <!-- Catálogo -->
+        <TextView
+            android:id="@+id/tvCatalogo"
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="16dp"
+            android:textSize="10sp"
+            android:textColor="@color/gris"
+            android:text="Catálogo de especies de la provincia de Córdoba" />
+
+        <Button
+            android:id="@+id/btnAñadir"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            style="@style/BotonEstilo"
+            android:text="Añadir nueva ficha"/>
+
+        <!-- Fichas -->
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <!-- Contenedor de las fichas -->
+            <LinearLayout
+                android:id="@+id/contenedorEspecies"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" />
+
+        </ScrollView>
+    </LinearLayout>
+
+    <include
+        android:id="@+id/layoutNavbar"
+        layout="@layout/navbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+</RelativeLayout>

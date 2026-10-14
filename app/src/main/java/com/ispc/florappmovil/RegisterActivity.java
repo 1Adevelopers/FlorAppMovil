@@ -1,25 +1,38 @@
 package com.ispc.florappmovil;
 
+import com.ispc.florappmovil.models.Usuario;
+import com.ispc.florappmovil.api.FlorAppApi;
+
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Patterns;
-import android.view.View;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.ispc.florappmovil.api.RetrofitClient;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+
 public class RegisterActivity extends AppCompatActivity {
 
-    private EditText etNombre;
-    private EditText etApellido;
-    private EditText etEmail;
-    private EditText etPassword;
-    private EditText etConfirmarPassword;
-    private Button btnRegistrar;
-    private TextView tvVolverALogin;
-    private TextView tvInvitado;
+    // Emulador + Django en tu compu: 10.0.2.2. Cambiar según el entorno del equipo.
+    private static final String URL_REGISTRO = RetrofitClient.getBaseUrl() + "api/usuarios/";
+
+    private EditText etNombre, etApellido, etEmail, etPassword, etConfirmarPassword;
+    private Button btnRegistrar, btnArrepentimiento;
+    private CheckBox cbTerminos;
+    private TextView tvVolverALogin, tvInvitado, tvTerminos;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,30 +47,28 @@ public class RegisterActivity extends AppCompatActivity {
         btnRegistrar = findViewById(R.id.btnRegistrar);
         tvVolverALogin = findViewById(R.id.tvVolverALogin);
         tvInvitado = findViewById(R.id.tvInvitado);
+        cbTerminos = findViewById(R.id.cbTerminos);
+        tvTerminos = findViewById(R.id.tvTerminos);
+        btnArrepentimiento = findViewById(R.id.btnArrepentimiento);
 
-        btnRegistrar.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                intentarRegistro();
-            }
-        });
+        actualizarBotonRegistrar(false);
+        cbTerminos.setOnCheckedChangeListener((buttonView, isChecked) ->
+                actualizarBotonRegistrar(isChecked));
 
-        tvInvitado.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { finish();}
-        });
-        tvVolverALogin.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+        tvTerminos.setOnClickListener(v -> mostrarModalTerminos());
+        btnArrepentimiento.setOnClickListener(v -> confirmarArrepentimiento());
+        btnRegistrar.setOnClickListener(v -> intentarRegistro());
 
+        tvVolverALogin.setOnClickListener(v -> finish());
         tvInvitado.setOnClickListener(v -> {
-            Intent intent = new Intent(RegisterActivity.this, GaleriaActivity.class);
-            startActivity(intent);
+            new SessionManager(RegisterActivity.this).cerrarSesion(); // invitado: sin sesión
+            startActivity(new Intent(RegisterActivity.this, GaleriaActivity.class));
         });
+    }
 
+    private void actualizarBotonRegistrar(boolean habilitado) {
+        btnRegistrar.setEnabled(habilitado);
+        btnRegistrar.setAlpha(habilitado ? 1f : 0.5f);
     }
 
     private void intentarRegistro() {
@@ -72,28 +83,116 @@ public class RegisterActivity extends AppCompatActivity {
             Toast.makeText(this, "Por favor complete todos los campos", Toast.LENGTH_SHORT).show();
             return;
         }
-
         if (!Patterns.EMAIL_ADDRESS.matcher(email).matches()) {
             Toast.makeText(this, "Ingrese un email válido", Toast.LENGTH_SHORT).show();
             return;
         }
-
         if (!password.equals(confirmarPassword)) {
             Toast.makeText(this, "Las contraseñas no coinciden", Toast.LENGTH_SHORT).show();
             return;
         }
-
         if (password.length() < 8) {
             Toast.makeText(this, "La contraseña debe tener al menos 8 caracteres", Toast.LENGTH_SHORT).show();
             return;
         }
+        if (!cbTerminos.isChecked()) {
+            Toast.makeText(this, "Debe aceptar los Términos y Condiciones", Toast.LENGTH_SHORT).show();
+            return;
+        }
 
-        // TODO(Eric): reemplazar esta simulación por la llamada real al backend
-        // (POST /api/usuarios/usuarios/) cuando el equipo defina la conexión con JWT.
-        Toast.makeText(this, "Registro válido (pendiente de conexión con el backend)", Toast.LENGTH_SHORT).show();
+        registrarEnBackend(nombre, apellido, email, password);
+    }
 
-        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-        startActivity(intent);
-        finish();
+    private void registrarEnBackend(String nombre, String apellido, String email, String password) {
+        actualizarBotonRegistrar(false); // evita envíos dobles
+
+        // Creamos la instancia del modelo Usuario que armó el equipo
+        Usuario usuario = new Usuario(nombre, apellido, email, password);
+
+        // Obtenemos la instancia de la API a través de RetrofitClient
+        FlorAppApi api = RetrofitClient.getClient().create(FlorAppApi.class);
+        Call<Usuario> call = api.registrarUsuario(usuario);
+
+        call.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                actualizarBotonRegistrar(cbTerminos.isChecked());
+
+                if (response.code() == 201) {
+                    Toast.makeText(RegisterActivity.this, "Cuenta creada. Ya podés iniciar sesión", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                    finish();
+                } else if (response.code() == 400) {
+                    Toast.makeText(RegisterActivity.this, "Datos inválidos o el email ya está registrado", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Error del servidor (" + response.code() + ")", Toast.LENGTH_LONG).show();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                actualizarBotonRegistrar(cbTerminos.isChecked());
+                Toast.makeText(RegisterActivity.this, "No se pudo conectar con el servidor", Toast.LENGTH_LONG).show();
+            }
+        });
+    }
+
+    private void manejarRespuesta(int codigo) {
+        actualizarBotonRegistrar(cbTerminos.isChecked());
+
+        if (codigo == 201) {
+            Toast.makeText(this, "Cuenta creada. Ya podés iniciar sesión", Toast.LENGTH_LONG).show();
+            startActivity(new Intent(this, LoginActivity.class));
+            finish();
+        } else if (codigo == 400) {
+            Toast.makeText(this, "Datos inválidos o el email ya está registrado", Toast.LENGTH_LONG).show();
+        } else if (codigo == -1) {
+            Toast.makeText(this, "No se pudo conectar con el servidor", Toast.LENGTH_LONG).show();
+        } else {
+            Toast.makeText(this, "Error del servidor (" + codigo + ")", Toast.LENGTH_LONG).show();
+        }
+    }
+
+    private void mostrarModalTerminos() {
+        Dialog dialog = new Dialog(RegisterActivity.this);
+        dialog.setContentView(R.layout.modal_terminos);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        Button btnModalAceptar = dialog.findViewById(R.id.btnModalAceptar);
+        Button btnModalCancelar = dialog.findViewById(R.id.btnModalCancelar);
+
+        btnModalAceptar.setOnClickListener(v -> {
+            cbTerminos.setChecked(true);
+            dialog.dismiss();
+        });
+
+        btnModalCancelar.setOnClickListener(v -> {
+            cbTerminos.setChecked(false);
+            dialog.dismiss();
+        });
+
+        dialog.show();
+    }
+
+    private void confirmarArrepentimiento() {
+        new androidx.appcompat.app.AlertDialog.Builder(this)
+                .setTitle("Cancelar registro")
+                .setMessage("Se borrarán los datos ingresados y no se creará ninguna cuenta. ¿Querés continuar?")
+                .setPositiveButton("Sí, cancelar", (dialog, which) -> {
+                    etNombre.setText("");
+                    etApellido.setText("");
+                    etEmail.setText("");
+                    etPassword.setText("");
+                    etConfirmarPassword.setText("");
+                    cbTerminos.setChecked(false);
+                    actualizarBotonRegistrar(false);
+                    Toast.makeText(this, "Registro cancelado", Toast.LENGTH_SHORT).show();
+                    finish();
+                })
+                .setNegativeButton("Volver", null)
+                .show();
     }
 }

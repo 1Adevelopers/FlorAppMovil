@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/modal_background"
+    android:layout_gravity="center">
+
+    <TextView
+        android:id="@+id/tvModalTitulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="¿Qué podés hacer como Invitado?"
+        style="@style/TituloModal"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        android:id="@+id/tvModalDescripcion"
+        style="@style/TextoPrincipal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Podés acceder a recorrer la galería de fichas de especies nativas."
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/btnModalIngresar"
+        style="@style/BotonEstilo"
+        android:text="Ingresar como invitado"
+        android:layout_marginBottom="12dp" />
+
+    <Button
+        android:id="@+id/btnModalVolver"
+        style="@style/BotonEstilo"
+        android:text="Volver" />
+
+
+
+</LinearLayout>

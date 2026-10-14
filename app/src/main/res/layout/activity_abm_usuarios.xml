@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:gravity="center_horizontal"
+        android:padding="32dp">
+
+        <!-- Título -->
+        <TextView
+            android:id="@+id/tvGestionUsuarios"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agregar usuario"
+            style="@style/TituloPrincipal"
+            android:layout_marginBottom="20dp" />
+
+        <!-- Nombre -->
+        <TextView
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold"
+            android:text="Nombre" />
+
+        <EditText
+            android:id="@+id/etNombre"
+            style="@style/TextoInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Escribí el nombre..."
+            android:textColorHint="@color/gris"
+            android:inputType="textPersonName"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:background="@drawable/input_fondo"
+            android:textColor="@color/texto_principal"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Apellido -->
+        <TextView
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold"
+            android:text="Apellido" />
+
+        <EditText
+            android:id="@+id/etApellido"
+            style="@style/TextoInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Escribí el apellido..."
+            android:textColorHint="@color/gris"
+            android:inputType="textPersonName"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:background="@drawable/input_fondo"
+            android:textColor="@color/texto_principal"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Correo electrónico -->
+        <TextView
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold"
+            android:text="Correo electrónico" />
+
+        <EditText
+            android:id="@+id/etEmail"
+            style="@style/TextoInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Escribí el correo electrónico..."
+            android:textColorHint="@color/gris"
+            android:inputType="textEmailAddress"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:background="@drawable/input_fondo"
+            android:textColor="@color/texto_principal"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Contraseña -->
+        <TextView
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold"
+            android:text="Contraseña" />
+
+        <EditText
+            android:id="@+id/etContrasena"
+            style="@style/TextoInput"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:hint="Escribí la contraseña"
+            android:textColorHint="@color/gris"
+            android:inputType="textPassword"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:background="@drawable/input_fondo"
+            android:textColor="@color/texto_principal"
+            android:layout_marginBottom="12dp" />
+
+        <!-- Tipo de perfil / Rol -->
+        <TextView
+            style="@style/TextoPrincipal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="5dp"
+            android:textStyle="bold"
+            android:text="Tipo de perfil" />
+
+        <Spinner
+            android:id="@+id/spinnerRoles"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:background="@drawable/input_fondo"
+            android:layout_marginBottom="24dp"/>
+
+        <!-- Botones Guardar / Actualizar y Cancelar -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btnGuardar"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:text="Guardar"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/verde2"
+                android:layout_marginEnd="5dp"
+                style="@style/BotonEstilo"/>
+
+            <Button
+                android:id="@+id/btnCancelar"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="50dp"
+                android:text="Cancelar"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:backgroundTint="@color/verde2"
+                android:layout_marginStart="5dp"
+                style="@style/BotonEstilo"/>
+        </LinearLayout>
+
+    </LinearLayout>
+</ScrollView>
