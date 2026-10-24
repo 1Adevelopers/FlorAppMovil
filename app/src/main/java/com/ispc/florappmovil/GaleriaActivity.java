@@ -190,6 +190,16 @@ public class GaleriaActivity extends AppCompatActivity {
             runOnUiThread(() -> manejarRespuestaEspecies(estado, jsonFinal));
         }).start();
     }
+    public void recargarDatos() {
+        obtenerEspeciesBackend();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        obtenerCategoriasBackend();
+        recargarDatos();
+    }
     private void manejarRespuestaEspecies(int codigo, String json) {
         if (codigo == 200 && !json.isEmpty()) {
             try {
