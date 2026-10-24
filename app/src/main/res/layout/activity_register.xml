@@ -8,7 +8,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="center"
         android:padding="32dp"
@@ -57,6 +57,7 @@
             android:textColor="@color/texto_principal"
             android:layout_marginBottom="16dp" />
 
+        <!-- Campo Contraseña con ícono -->
         <EditText
             android:id="@+id/etPassword"
             android:layout_width="match_parent"
@@ -64,11 +65,14 @@
             android:hint="Contraseña"
             android:inputType="textPassword"
             android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:paddingEnd="48dp"
             android:background="@drawable/input_fondo"
             android:textColor="@color/texto_principal"
+            android:drawableEnd="@drawable/ic_ojo_cerrado"
+            android:drawablePadding="12dp"
             android:layout_marginBottom="16dp" />
 
+        <!-- Campo Confirmar Contraseña con ícono -->
         <EditText
             android:id="@+id/etConfirmarPassword"
             android:layout_width="match_parent"
@@ -76,12 +80,65 @@
             android:hint="Confirmar contraseña"
             android:inputType="textPassword"
             android:paddingStart="16dp"
-            android:paddingEnd="16dp"
+            android:paddingEnd="48dp"
             android:background="@drawable/input_fondo"
             android:textColor="@color/texto_principal"
+            android:drawableEnd="@drawable/ic_ojo_cerrado"
+            android:drawablePadding="12dp"
             android:layout_marginBottom="16dp" />
 
-        <!-- NUEVO: Términos y Condiciones -->
+        <!-- Requisitos de contraseña -->
+        <TextView
+            android:id="@+id/tvRequisitos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="La contraseña debe cumplir:"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            android:layout_marginBottom="4dp"/>
+
+        <TextView
+            android:id="@+id/tvLargo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Mínimo 8 caracteres"
+            android:textSize="12sp"
+            android:textColor="@color/gris"/>
+
+        <TextView
+            android:id="@+id/tvMayuscula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Al menos una mayúscula"
+            android:textSize="12sp"
+            android:textColor="@color/gris"/>
+
+        <TextView
+            android:id="@+id/tvMinuscula"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Al menos una minúscula"
+            android:textSize="12sp"
+            android:textColor="@color/gris"/>
+
+        <TextView
+            android:id="@+id/tvNumero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Al menos un número"
+            android:textSize="12sp"
+            android:textColor="@color/gris"/>
+
+        <TextView
+            android:id="@+id/tvSimbolo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Al menos un símbolo"
+            android:textSize="12sp"
+            android:textColor="@color/gris"
+            android:layout_marginBottom="16dp"/>
+
+        <!-- Términos y Condiciones -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -122,7 +179,6 @@
             android:background="@drawable/boton_redondeado"
             app:backgroundTint="@null"/>
 
-        <!-- NUEVO: Botón de Arrepentimiento -->
         <Button
             android:id="@+id/btnArrepentimiento"
             android:layout_width="match_parent"
