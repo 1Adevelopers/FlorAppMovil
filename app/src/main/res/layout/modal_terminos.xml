@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:padding="24dp"
+    android:background="@drawable/modal_background"
+    android:layout_gravity="center">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Términos y Condiciones"
+        style="@style/TituloModal"
+        android:textStyle="bold"
+        android:layout_marginBottom="16dp" />
+
+    <TextView
+        style="@style/TextoPrincipal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Al registrarte aceptás que FlorApp trate tus datos personales (nombre, apellido y email) únicamente para gestionar tu cuenta. Podés solicitar la modificación o eliminación de tus datos en cualquier momento."
+        android:layout_marginBottom="24dp" />
+
+    <Button
+        android:id="@+id/btnModalAceptar"
+        style="@style/BotonEstilo"
+        android:text="Aceptar"
+        android:layout_marginBottom="12dp" />
+
+    <Button
+        android:id="@+id/btnModalCancelar"
+        style="@style/BotonEstilo"
+        android:text="Cancelar" />
+
+</LinearLayout>

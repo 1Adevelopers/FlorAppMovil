@@ -1,8 +1,14 @@
 package com.ispc.florappmovil;
 
+import com.ispc.florappmovil.models.Usuario;
+import com.ispc.florappmovil.api.FlorAppApi;
+
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.widget.Button;
@@ -11,18 +17,22 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import org.json.JSONObject;
+import com.ispc.florappmovil.api.RetrofitClient;
 
-import java.io.OutputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
-import java.nio.charset.StandardCharsets;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
 
 public class RegisterActivity extends AppCompatActivity {
 
     // Emulador + Django en tu compu: 10.0.2.2. Cambiar según el entorno del equipo.
-    private static final String URL_REGISTRO = "http://192.168.1.107:8000/api/usuarios/";
+
+   // private static final String URL_REGISTRO = "http://192.168.1.107:8000/api/usuarios/";
    // private static final String URL_REGISTRO = "http://192.168.120.54:8000/api/usuarios/";
+
+
+    private static final String URL_REGISTRO = RetrofitClient.getBaseUrl() + "api/usuarios/";
 
 
     private EditText etNombre, etApellido, etEmail, etPassword, etConfirmarPassword;
@@ -51,13 +61,15 @@ public class RegisterActivity extends AppCompatActivity {
         cbTerminos.setOnCheckedChangeListener((buttonView, isChecked) ->
                 actualizarBotonRegistrar(isChecked));
 
-        tvTerminos.setOnClickListener(v -> mostrarTerminos());
+        tvTerminos.setOnClickListener(v -> mostrarModalTerminos());
         btnArrepentimiento.setOnClickListener(v -> confirmarArrepentimiento());
         btnRegistrar.setOnClickListener(v -> intentarRegistro());
 
         tvVolverALogin.setOnClickListener(v -> finish());
-        tvInvitado.setOnClickListener(v ->
-                startActivity(new Intent(RegisterActivity.this, GaleriaActivity.class)));
+        tvInvitado.setOnClickListener(v -> {
+            new SessionManager(RegisterActivity.this).cerrarSesion(); // invitado: sin sesión
+            startActivity(new Intent(RegisterActivity.this, GaleriaActivity.class));
+        });
     }
 
     private void actualizarBotonRegistrar(boolean habilitado) {
@@ -100,38 +112,35 @@ public class RegisterActivity extends AppCompatActivity {
     private void registrarEnBackend(String nombre, String apellido, String email, String password) {
         actualizarBotonRegistrar(false); // evita envíos dobles
 
-        // La red no se puede usar en el hilo principal: se hace en un hilo aparte
-        new Thread(() -> {
-            int codigo = -1; // -1 = no se pudo conectar
-            HttpURLConnection conn = null;
-            try {
-                JSONObject json = new JSONObject();
-                json.put("nombre", nombre);
-                json.put("apellido", apellido);
-                json.put("email", email);
-                json.put("contrasena", password);
-                // No se envía "rol": el backend asigna el rol por defecto
+        // Creamos la instancia del modelo Usuario que armó el equipo
+        Usuario usuario = new Usuario(nombre, apellido, email, password);
 
-                conn = (HttpURLConnection) new URL(URL_REGISTRO).openConnection();
-                conn.setRequestMethod("POST");
-                conn.setRequestProperty("Content-Type", "application/json; charset=UTF-8");
-                conn.setConnectTimeout(8000);
-                conn.setReadTimeout(8000);
-                conn.setDoOutput(true);
+        // Obtenemos la instancia de la API a través de RetrofitClient
+        FlorAppApi api = RetrofitClient.getClient().create(FlorAppApi.class);
+        Call<Usuario> call = api.registrarUsuario(usuario);
 
-                try (OutputStream os = conn.getOutputStream()) {
-                    os.write(json.toString().getBytes(StandardCharsets.UTF_8));
+        call.enqueue(new Callback<Usuario>() {
+            @Override
+            public void onResponse(Call<Usuario> call, Response<Usuario> response) {
+                actualizarBotonRegistrar(cbTerminos.isChecked());
+
+                if (response.code() == 201) {
+                    Toast.makeText(RegisterActivity.this, "Cuenta creada. Ya podés iniciar sesión", Toast.LENGTH_LONG).show();
+                    startActivity(new Intent(RegisterActivity.this, LoginActivity.class));
+                    finish();
+                } else if (response.code() == 400) {
+                    Toast.makeText(RegisterActivity.this, "Datos inválidos o el email ya está registrado", Toast.LENGTH_LONG).show();
+                } else {
+                    Toast.makeText(RegisterActivity.this, "Error del servidor (" + response.code() + ")", Toast.LENGTH_LONG).show();
                 }
-                codigo = conn.getResponseCode();
-            } catch (Exception e) {
-                codigo = -1; // sin log de datos: nunca se registra la contraseña
-            } finally {
-                if (conn != null) conn.disconnect();
             }
 
-            final int resultado = codigo;
-            runOnUiThread(() -> manejarRespuesta(resultado));
-        }).start();
+            @Override
+            public void onFailure(Call<Usuario> call, Throwable t) {
+                actualizarBotonRegistrar(cbTerminos.isChecked());
+                Toast.makeText(RegisterActivity.this, "No se pudo conectar con el servidor", Toast.LENGTH_LONG).show();
+            }
+        });
     }
 
     private void manejarRespuesta(int codigo) {
@@ -150,19 +159,32 @@ public class RegisterActivity extends AppCompatActivity {
         }
     }
 
-    private void mostrarTerminos() {
-        new AlertDialog.Builder(this)
-                .setTitle("Términos y Condiciones")
-                .setMessage("Al registrarte aceptás que FlorApp trate tus datos personales "
-                        + "(nombre, apellido y email) únicamente para gestionar tu cuenta. "
-                        + "Podés solicitar la modificación o eliminación de tus datos en "
-                        + "cualquier momento.")
-                .setPositiveButton("Entendido", null)
-                .show();
+    private void mostrarModalTerminos() {
+        Dialog dialog = new Dialog(RegisterActivity.this);
+        dialog.setContentView(R.layout.modal_terminos);
+
+        if (dialog.getWindow() != null) {
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+
+        Button btnModalAceptar = dialog.findViewById(R.id.btnModalAceptar);
+        Button btnModalCancelar = dialog.findViewById(R.id.btnModalCancelar);
+
+        btnModalAceptar.setOnClickListener(v -> {
+            cbTerminos.setChecked(true);
+            dialog.dismiss();
+        });
+
+        btnModalCancelar.setOnClickListener(v -> {
+            cbTerminos.setChecked(false);
+            dialog.dismiss();
+        });
+
+        dialog.show();
     }
 
     private void confirmarArrepentimiento() {
-        new AlertDialog.Builder(this)
+        new androidx.appcompat.app.AlertDialog.Builder(this)
                 .setTitle("Cancelar registro")
                 .setMessage("Se borrarán los datos ingresados y no se creará ninguna cuenta. ¿Querés continuar?")
                 .setPositiveButton("Sí, cancelar", (dialog, which) -> {
@@ -172,6 +194,7 @@ public class RegisterActivity extends AppCompatActivity {
                     etPassword.setText("");
                     etConfirmarPassword.setText("");
                     cbTerminos.setChecked(false);
+                    actualizarBotonRegistrar(false);
                     Toast.makeText(this, "Registro cancelado", Toast.LENGTH_SHORT).show();
                     finish();
                 })

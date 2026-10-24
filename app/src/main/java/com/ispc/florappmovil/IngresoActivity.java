@@ -51,8 +51,10 @@ public class IngresoActivity extends AppCompatActivity {
 
             btnModalIngresar.setOnClickListener(view -> {
                 dialog.dismiss();
+                new SessionManager(IngresoActivity.this).cerrarSesion(); // invitado: sin sesión
                 Intent intent = new Intent(IngresoActivity.this, GaleriaActivity.class);
                 startActivity(intent);
+                finish();
             });
 
             btnModalVolver.setOnClickListener(view -> {

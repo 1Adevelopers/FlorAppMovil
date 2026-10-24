@@ -2,6 +2,16 @@ plugins {
     id 'com.android.application'
 }
 
+
+// IP del servidor Django: se lee de local.properties (florapp.ip=...).
+// Ese archivo no se sube a GitHub. Si no existe la línea, usa 10.0.2.2 (emulador).
+def localProps = new Properties()
+def localPropsFile = rootProject.file('local.properties')
+if (localPropsFile.exists()) {
+    localPropsFile.withInputStream { localProps.load(it) }
+}
+def florappIp = localProps.getProperty('florapp.ip', '10.0.2.2').trim()
+
 android {
     namespace 'com.ispc.florappmovil'
     compileSdk 33
@@ -14,6 +24,13 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        // Dirección base de la API, armada con la IP de local.properties
+        buildConfigField "String", "BASE_URL", "\"http://${florappIp}:8000/\""
+    }
+
+    buildFeatures {
+        buildConfig true
     }
 
     buildTypes {
@@ -44,6 +61,11 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
     androidTestImplementation 'androidx.test.ext:junit:1.1.5'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+    androidTestImplementation 'androidx.test.espresso:espresso-accessibility:3.5.1'
+    testImplementation 'junit:junit:4.13.2'
+    testImplementation 'org.mockito:mockito-core:4.11.0'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.11.0'
+    testImplementation 'androidx.arch.core:core-testing:2.2.0'
 
     implementation 'com.github.bumptech.glide:glide:4.16.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.16.0'

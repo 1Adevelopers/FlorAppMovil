@@ -1,9 +1,7 @@
 package com.ispc.florappmovil;
 
 import androidx.appcompat.app.AppCompatActivity;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Patterns;
 import android.view.View;
@@ -20,8 +18,6 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import androidx.security.crypto.EncryptedSharedPreferences;
-import androidx.security.crypto.MasterKey;
 
 public class LoginActivity extends AppCompatActivity {
     // 1. Declaración de variables para los componentes visuales
@@ -52,8 +48,10 @@ public class LoginActivity extends AppCompatActivity {
         });
 
         tvInvitado.setOnClickListener(v -> {
+            new SessionManager(LoginActivity.this).cerrarSesion(); // invitado: sin sesión
             Intent intent = new Intent(LoginActivity.this, GaleriaActivity.class);
             startActivity(intent);
+            finish();
         });
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
@@ -91,16 +89,21 @@ public class LoginActivity extends AppCompatActivity {
                 // Django responde OK (HTTP 200) y las credenciales son correctas
                 if (response.isSuccessful() && response.body() != null) {
 
-                    // 1. Extraemos el token generado por el backend
-                    String token = response.body().getAccess();
+                    TokenResponse datos = response.body();
+                    if (datos.getUser() == null || datos.getUser().getId() == null) {
+                        Toast.makeText(LoginActivity.this, "Respuesta inesperada del servidor", Toast.LENGTH_SHORT).show();
+                        return;
+                    }
 
-                    // 2. Lo guardamos de forma segura en el celular (Requerimiento Ciberseguridad)
-                    guardarTokenLocal(token);
+                    // Guardamos token, refresh e id del usuario de forma cifrada (Requerimiento Ciberseguridad)
+                    new SessionManager(LoginActivity.this).guardarSesion(
+                            datos.getAccess(), datos.getRefresh(), datos.getUser().getId(), datos.getUser().getRol());
 
                     Toast.makeText(LoginActivity.this, "¡Bienvenido a FlorApp!", Toast.LENGTH_SHORT).show();
 
                     // 3. Intent a GaleriaActivity
                     Intent intent = new Intent(LoginActivity.this, GaleriaActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                     startActivity(intent);
                     finish();
 
@@ -116,27 +119,5 @@ public class LoginActivity extends AppCompatActivity {
                 Toast.makeText(LoginActivity.this, "Error de red: Comprueba tu conexión", Toast.LENGTH_LONG).show();
             }
         });
-    }
-
-    // Método para almacenar el Token JWT en las preferencias del celular
-    private void guardarTokenLocal(String token) {
-        try {
-            // 1. Crear la llave maestra para cifrar
-            MasterKey masterKey = new MasterKey.Builder(this)
-                    .setKeyScheme(MasterKey.KeyScheme.AES256_GCM)
-                    .build();
-            // Se crea archivo local privado llamado FlorAppPrefsSeguro
-            SharedPreferences sharedPreferences = EncryptedSharedPreferences.create(this, "FlorAppPrefsSeguro",
-                    masterKey,
-                    EncryptedSharedPreferences.PrefKeyEncryptionScheme.AES256_SIV,
-                    EncryptedSharedPreferences.PrefValueEncryptionScheme.AES256_GCM);
-
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.putString("JWT_TOKEN", token);
-            editor.apply();
-        } catch (Exception e){
-            e.printStackTrace();
-        }
-
     }
 }

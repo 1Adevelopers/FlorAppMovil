@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- esto va a camnbiarse despues depende lo que seleccionemos (violeta, naranja, celeste, amarillo) -->
+    <solid android:color="@color/violeta" />
+    <corners android:radius="16dp" />
+</shape>
