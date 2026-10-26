@@ -6,11 +6,18 @@
     android:layout_height="match_parent"
     android:background="@color/fondo">
 
+    <include
+        android:id="@+id/layoutNavbar"
+        layout="@layout/navbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@id/layoutNavbar"
         android:orientation="vertical"
-        android:gravity="center"
         android:padding="24dp"
         >
 
@@ -19,6 +26,7 @@
             android:id="@+id/tvGestionFichas"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:text="Gestión de fichas"
             style="@style/TituloPrincipal"
             android:layout_marginBottom="20dp" />
@@ -55,7 +63,10 @@
         <!-- Fichas -->
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:clipToPadding="false"
+            android:contentDescription="Lista de fichas de plantas">
 
             <!-- Contenedor de las fichas -->
             <LinearLayout
@@ -67,10 +78,5 @@
         </ScrollView>
     </LinearLayout>
 
-    <include
-        android:id="@+id/layoutNavbar"
-        layout="@layout/navbar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true" />
+
 </RelativeLayout>
