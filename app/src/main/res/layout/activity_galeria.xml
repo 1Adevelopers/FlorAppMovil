@@ -16,38 +16,13 @@
         android:padding="24dp"
         >
 
-        <!-- Botón Contacto
-        <Button
-            android:id="@+id/btnContacto"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:text="Contacto"
-            android:textAllCaps="false"
-            android:textSize="8sp"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/verde1"
-            android:layout_marginEnd="5dp" />  -->
-
-        <!-- Botón Perfil
-        <Button
-            android:id="@+id/btnPerfil"
-            android:layout_width="wrap_content"
-            android:layout_height="32dp"
-            android:text="Perfil"
-            android:textAllCaps="false"
-            android:textSize="8sp"
-            android:textColor="@color/white"
-            android:backgroundTint="@color/verde1"
-            android:layout_marginEnd="5dp" /> -->
-
         <!-- Titulo -->
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/TituloPrincipal"
             android:text="Fichas de plantas"
-            android:textColor="@color/verde1"
             android:textSize="20sp"
-            android:textStyle="bold"
             android:layout_marginBottom="5dp"/>
 
         <!-- Filtros -->
@@ -55,14 +30,18 @@
             android:id="@+id/spinnerCategorias"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@drawable/input_fondo"
-            android:layout_marginBottom="16dp"/>
+            android:background="@drawable/spinner_background"
+            android:popupBackground="@color/gris"
+            android:radius="12dp"
+            android:layout_marginBottom="16dp"
+            />
 
 
         <!-- Fichas -->
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:contentDescription="Lista de fichas de plantas">
 
             <!-- Contenedor de las fichas -->
             <LinearLayout

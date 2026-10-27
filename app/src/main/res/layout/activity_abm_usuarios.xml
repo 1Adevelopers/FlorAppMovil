@@ -128,7 +128,8 @@
             android:id="@+id/spinnerRoles"
             android:layout_width="match_parent"
             android:layout_height="48dp"
-            android:background="@drawable/input_fondo"
+            android:background="@drawable/spinner_background"
+            android:popupBackground="@color/gris"
             android:layout_marginBottom="24dp"/>
 
         <!-- Botones Guardar / Actualizar y Cancelar -->
